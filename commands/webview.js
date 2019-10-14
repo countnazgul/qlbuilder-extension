@@ -1,26 +1,24 @@
-import * as vscode from 'vscode';
+const vscode = require('vscode');
 
 //context.subscriptions.push(
-export function webview() {
-    vscode.commands.registerCommand('dataSelect', () => {
-        // Create and show a new webview
-        const panel = vscode.window.createWebviewPanel(
-            'dataSelect', // Identifies the type of the webview. Used internally
-            'Data Select', // Title of the panel displayed to the user
-            vscode.ViewColumn.One, // Editor column to show the new webview panel in.
-            {} // Webview options. More on these later.
-        );
+const webview = vscode.commands.registerCommand('dataSelect', () => {
+    // Create and show a new webview
+    const panel = vscode.window.createWebviewPanel(
+        'dataSelect', // Identifies the type of the webview. Used internally
+        'Data Select', // Title of the panel displayed to the user
+        vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+        {} // Webview options. More on these later.
+    );
 
-        panel.webview.html = getWebviewContent()
-    })
-    //)
-}
+    panel.webview.html = getWebviewContent()
+})
 
 function getWebviewContent() {
     return `<!DOCTYPE html>
   <html lang="en">
   <head>
-	  <meta charset="UTF-8">
+      <meta charset="UTF-8">
+      <meta http-equiv="Content-Security-Policy" content="default-src 'none';">
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  <title>Cat Coding</title>
   </head>
@@ -29,3 +27,5 @@ function getWebviewContent() {
   </body>
   </html>`;
 }
+
+module.exports = webview

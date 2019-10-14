@@ -23,7 +23,8 @@
 			},
 			{
 				"command": "listDataConnections",
-				"title": "qlbuilder - list data connections"
+				"title": "qlbuilder - list data connections",
+				"category": "qlbuilder"
 			},
 			{
 				"command": "dataSelect",
@@ -45,5 +46,9 @@
 		"mocha": "^6.1.4",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.2.0"
+	},
+	"dependencies": {
+		"enigma.js": "^2.4.0",
+		"ws": "^7.1.2"
 	}
 }
