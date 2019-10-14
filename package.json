@@ -10,25 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld",
-		"onCommand:listDataConnections",
-		"onCommand:dataSelect"
+		"onCommand:listDataConnections"
 	],
-	"main": "./extension.js",
+	"main": "./src/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			},
-			{
 				"command": "listDataConnections",
 				"title": "qlbuilder - list data connections",
-				"category": "qlbuilder"
-			},
-			{
-				"command": "dataSelect",
-				"title": "Data Select",
 				"category": "qlbuilder"
 			}
 		]
