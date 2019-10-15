@@ -27,6 +27,11 @@ const webResources = [
         file: 'jquery.min.js'
     },
     {
+        name: 'vue_uri',
+        folder: 'src/resources/js',
+        file: 'vue.min.js'
+    },    
+    {
         name: 'leonardo_js',
         folder: 'src/resources/js',
         file: 'leonardo-ui.min.js'
