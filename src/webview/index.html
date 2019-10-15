@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="{csp}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Connections</title>
+    <link nonce="{nonce}" rel="stylesheet" type="text/css" href="{styles_uri}">
+    <link nonce="{nonce}" rel="stylesheet" href="{leonardo_css}" type="text/css" />
+    <style nonce="{nonce}">
+        @font-face {
+            font-family: "LUI icons";
+            src: url({lui_woff}) format('woff'),
+            url({lui_ttf}) format('truetype');
+        }
+
+        @font-face {
+            font-family: "Hack";
+            src: url({hack_ttf}) format('truetype');
+        }        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="data-connections">
+            <div class="dc-header">Data Connections</div>
+            <div class="dc-empty">&nbsp;</div>
+            <div class="dc-list">
+                <div class="dc">
+                    <div><span class="lui-icon  lui-icon--folder" aria-hidden="true"></span></div>
+                    <div>Downloads</div>
+                    <div><span class="lui-icon  lui-icon--edit" aria-hidden="true" title="Edit"></span></div>
+                    <div><span class="lui-icon  lui-icon--table" aria-hidden="true" title="Select data"></span></div>
+                </div>
+                <div class="dc">
+                    <div><span class="lui-icon  lui-icon--folder" aria-hidden="true"></span></div>
+                    <div>Documents</div>
+                    <div><span class="lui-icon  lui-icon--edit" aria-hidden="true" title="Edit"></span></div>
+                    <div><span class="lui-icon  lui-icon--table" aria-hidden="true" title="Select data"></span></div>
+                </div>
+            </div>
+        </div>
+        <div class="files">
+            <div class="f-header">Files</div>
+            <div class="f-ops">
+                <div><span class="lui-icon  lui-icon--arrow-up" aria-hidden="true"></span></div>
+                <div>c:\users\temp</div>
+                <div><input class="lui-input" placeholder="Filter files" /></div>
+            </div>
+            <div class="f-list">
+                <div class="file">
+                    <div>FO</div>
+                    <div>My FOLDER Name</div>
+                </div>
+                <div class="file">
+                    <div>FI</div>
+                    <div>My FILE Name</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- <div id="loading">Connecting and opening the app ...</div>
+    <div id="connections">test</div>
+    <div id="filesListUP">UP</div>
+    <div id="filesList"></div> -->
+
+
+    <script nonce="{nonce}" src="{jquery_uri}"></script>
+    <script nonce="{nonce}" src="{leonardo_js}" type="text/javascript"></script>
+    <script nonce="{nonce}" src="{webview_uri}"></script>
+</body>
+
+</html>

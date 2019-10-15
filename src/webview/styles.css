@@ -1,7 +1,29 @@
-.display-block {
-    display: block;
+body {
+    font-family: Hack;
 }
 
-.display-none {
-    display: none;
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+}
+
+.dc {
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr 1fr;
+}
+
+.files {
+    display: grid;
+    grid-template-rows: 1fr 1fr 10fr;
+}
+
+.f-ops {
+    display: grid;
+    grid-template-columns: 1fr 10fr 7fr;
+}
+
+.file {
+    display: grid;
+    grid-template-columns: 1fr 10fr
 }

@@ -15,7 +15,7 @@ const dataConnections = function (context) {
         }
         let panel = helpers.createWebViewPanel(panelConfig)
 
-        panel.webview.html = helpers.getWebviewContent(vscode, context.extensionPath)
+        panel.webview.html = helpers.getWebviewContent(vscode, context, panel)
         panel.iconPath = helpers.panelIcons(vscode, context)
 
         let qDoc = await qlikComm.getQlikDoc()

@@ -2,7 +2,7 @@
 	"name": "qlbuilder-extension",
 	"displayName": "qlbuilder-extension",
 	"description": "",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.39.0"
 	},
@@ -17,7 +17,7 @@
 		"commands": [
 			{
 				"command": "listDataConnections",
-				"title": "qlbuilder - list data connections",
+				"title": "Data Sources (QlikSense)",
 				"category": "qlbuilder"
 			}
 		]
@@ -38,6 +38,7 @@
 	},
 	"dependencies": {
 		"enigma.js": "^2.4.0",
+		"leonardo-ui": "^1.7.1",
 		"ws": "^7.1.2"
 	}
 }
