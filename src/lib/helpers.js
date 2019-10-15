@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const config = require('./config')
 
 const compare = function (a, b) {
     if (a.qFileSize < b.qFileSize) {
@@ -43,51 +44,31 @@ const scriptUriBuilder = function scriptUri_builder(vscode, panel, extPath, medi
     return scriptUri;
 }
 
-// TODO: it doesn't look nice. Possible to be prettier?
+
 const getWebviewContent = function (vscode, context, panel) {
     const nonce = getNonce();
-
-    const webview_uri = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/webview', 'scripts.js');
-    const styles_uri = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/webview', 'styles.css');
-    const jquery_uri = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/resources/js', 'jquery.min.js');
-
-    const leonardo_js = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/resources/js', 'leonardo-ui.min.js');
-    const leonardo_css = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/resources/css', 'leonardo-ui.min.css');
-
-    const lui_woff = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/resources/fonts', 'lui-icons.woff');
-    const lui_ttf = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/resources/fonts', 'lui-icons.ttf');
-    const hack_ttf = scriptUriBuilder(vscode, panel, context.extensionPath, 'src/resources/fonts', 'Hack-Regular.ttf');
-
-    const csp = [
-        `default-src 'nonce-${nonce}'`,
-        `img-src vscode-resource:`,
-        `script-src 'nonce-${nonce}'`,
-        `style-src vscode-resource: 'nonce-${nonce}'`,
-        `font-src vscode-resource: 'nonce-${nonce}'`
-    ]
 
     const filePath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'webview', 'index.html'));
     let htmlInitial = fs.readFileSync(filePath.fsPath, 'utf8').toString();
 
     htmlInitial = htmlInitial.replace(/{nonce}/g, nonce);
-    htmlInitial = htmlInitial.replace(/{webview_uri}/g, webview_uri);
-    htmlInitial = htmlInitial.replace(/{styles_uri}/g, styles_uri);
-    htmlInitial = htmlInitial.replace(/{jquery_uri}/g, jquery_uri);
-    htmlInitial = htmlInitial.replace(/{leonardo_js}/g, leonardo_js);
-    htmlInitial = htmlInitial.replace(/{leonardo_css}/g, leonardo_css);
-    htmlInitial = htmlInitial.replace(/{lui_woff}/g, lui_woff);
-    htmlInitial = htmlInitial.replace(/{lui_ttf}/g, lui_ttf);
-    htmlInitial = htmlInitial.replace(/{hack_ttf}/g, hack_ttf);
-    htmlInitial = htmlInitial.replace(/{csp}/g, csp.join(';'));
+    htmlInitial = htmlInitial.replace(/{csp}/g, config.csp(nonce));
+
+    for (let res of config.webResources) {
+        let replaceTo = scriptUriBuilder(vscode, panel, context.extensionPath, res.folder, res.file)
+
+        let replaceWhat = new RegExp(`{${res.name}}`, 'g');
+        htmlInitial = htmlInitial.replace(replaceWhat, replaceTo);
+    }
 
     return htmlInitial
 }
 
 const createWebViewPanel = function ({ vscode, context, identity, title }) {
     return vscode.window.createWebviewPanel(
-        identity, // Identifies the type of the webview. Used internally
-        title, // Title of the panel displayed to the user
-        vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+        identity,
+        title,
+        vscode.ViewColumn.One,
         {
             enableScripts: true,
             localResourceRoots: [

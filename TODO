@@ -1,2 +1,6 @@
-☐ Remove fonts which are not required at the end
-☐ possible to use `vue.js`?
+Global:
+    ☐ Remove fonts which are not required at the end
+    ☐ possible to use `vue.js`?
+
+UI:
+    ☐ reload/refresh button for both connections and files
