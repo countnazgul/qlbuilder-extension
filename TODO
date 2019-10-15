@@ -4,3 +4,4 @@ Global:
 
 UI:
     ☐ reload/refresh button for both connections and files
+    ☐ clear the template html when the ui logic is in place
