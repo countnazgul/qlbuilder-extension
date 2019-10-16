@@ -8,6 +8,23 @@ body {
     grid-template-rows: 1fr;
 }
 
+.fl {
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.center {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.data-connections {
+    display: grid;
+    grid-template-rows: 1fr 1fr 98fr;
+}
+
 .dc {
     display: grid;
     grid-template-columns: 1fr 10fr 1fr 1fr;
@@ -15,7 +32,8 @@ body {
 
 .files {
     display: grid;
-    grid-template-rows: 1fr 1fr 10fr;
+    grid-template-rows: 1fr 1fr 98fr;
+    max-height: 100vh;
 }
 
 .f-ops {
@@ -23,7 +41,91 @@ body {
     grid-template-columns: 1fr 10fr 7fr;
 }
 
+.f-list {
+    overflow: auto;
+}
+
 .file {
     display: grid;
     grid-template-columns: 1fr 10fr
+}
+
+.link {
+    cursor: pointer;
+}
+
+.main {
+    max-height: 100vh;
+    max-width: 100vw;
+}
+
+.main-loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #dfc;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(19px, 0);
+    }
 }
