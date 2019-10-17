@@ -1,7 +1,5 @@
-Global:
-    ☐ Remove fonts which are not required at the end
-    ☐ possible to use `vue.js`?
-
-UI:
-    ☐ reload/refresh button for both connections and files
-    ☐ clear the template html when the ui logic is in place
+Archive:
+  ✔ Remove fonts which are not required at the end @done(19-10-17 13:25) @project(Global)
+  ✔ clear the template html when the ui logic is in place @done(19-10-17 13:24) @project(UI)
+  ✔ reload/refresh button for both connections and files @done(19-10-17 13:24) @project(UI)
+  ✔ possible to use `vue.js`? @done(19-10-17 13:24) @project(Global)

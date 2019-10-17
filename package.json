@@ -2,7 +2,7 @@
 	"name": "qlbuilder-extension",
 	"displayName": "qlbuilder-extension",
 	"description": "",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"publisher": "stefanstoichev",
 	"engines": {
 		"vscode": "^1.39.0"
@@ -41,6 +41,7 @@
 		"enigma.js": "^2.4.0",
 		"js-yaml": "^3.13.1",
 		"leonardo-ui": "^1.7.1",
+		"qlik-sense-authenticate": "^0.1.8",
 		"ws": "^7.1.2"
 	}
 }
