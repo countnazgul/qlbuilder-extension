@@ -2,7 +2,7 @@
 	"name": "qlbuilder-extension",
 	"displayName": "qlbuilder-extension",
 	"description": "",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "stefanstoichev",
 	"engines": {
 		"vscode": "^1.39.0"
@@ -39,6 +39,7 @@
 	},
 	"dependencies": {
 		"enigma.js": "^2.4.0",
+		"js-yaml": "^3.13.1",
 		"leonardo-ui": "^1.7.1",
 		"ws": "^7.1.2"
 	}

@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
-const config = require('./config')
+const config = require('./config');
+const yaml = require('js-yaml');
+const homeDir = require('os').homedir();
 
 const compare = function (a, b) {
     if (a.qFileSize < b.qFileSize) {
@@ -43,7 +45,6 @@ const scriptUriBuilder = function scriptUri_builder(vscode, panel, extPath, medi
 
     return scriptUri;
 }
-
 
 const getWebviewContent = function (vscode, context, panel) {
     const nonce = getNonce();
@@ -91,10 +92,86 @@ const panelIcons = function (vscode, context) {
     }
 }
 
+const configChecks = {
+    config: function (vscode) {
+        let folder = vscode.workspace.workspaceFolders
+
+        if (!folder) return { error: true, message: 'Please, open project folder first' }
+        if (folder.length > 1) return { error: true, message: 'Too many folders are open' }
+
+        let configPath = `${folder[0].uri.fsPath}\\config.yml`
+
+        if (!fs.existsSync(configPath)) return { error: true, message: 'config.yml is not present in the current folder' }
+
+        let configContent = yaml.safeLoad(fs.readFileSync(configPath).toString())
+
+
+        return { error: false, message: configContent }
+    },
+    homeConfig: function () {
+        let qlConfigLocation = `${homeDir}\\.qlbuilder.yml`
+
+        if (!fs.existsSync(qlConfigLocation)) return { error: true, message: `Unable to find .qlbuilder.yml in ${homeDir}` }
+
+        let qlConfig = yaml.safeLoad(fs.readFileSync(qlConfigLocation).toString())
+
+        return { error: false, message: qlConfig }
+    },
+    combined: function (vscode) {
+        let configOK = this.config(vscode)
+        if (configOK.error) return configOK
+
+        let homeConfig = this.homeConfig()
+        if (homeConfig.error) return homeConfig
+
+        return {
+            error: false,
+            message: {
+                coreConfig: configOK.message,
+                homeConfig: homeConfig.message
+            }
+        }
+    }
+}
+
+const environmentChecks = {
+    // core: function (selectedEnvironment, config) {
+    //     let environment = config.filter(function (e) {
+    //         return e.name == selectedEnvironment
+    //     })
+
+    //     if (environment.length == 0) return { error: true, message: 'The specified environment name do not exists in config.yml' }
+
+    //     return { error: false, message: environment[0] }
+
+    // },
+    home: function (selectedEnvironment, config) {
+        if (!config[selectedEnvironment]) return { error: true, message: 'The selected environment was not found in the home config .qlbuilder file' }
+
+        return config[selectedEnvironment]
+    },
+    combined: function (selectedEnvironment, config) {
+        let homeCheck = this.home(selectedEnvironment, config.homeConfig)
+        if (homeCheck.error) return homeCheck
+
+        let coreEnv = config.coreConfig.filter(function (e) {
+            return e.name == selectedEnvironment
+        })
+
+        return {
+            error: false,
+            message: {
+                core: coreEnv[0],
+                home: homeCheck.home
+            }
+        }
+    }
+}
+
 module.exports = {
+    configChecks,
+    environmentChecks,
     compare,
-    // getNonce,
-    // scriptUriBuilder,
     createLoadScript,
     getWebviewContent,
     createWebViewPanel,
