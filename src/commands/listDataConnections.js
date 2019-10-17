@@ -7,6 +7,11 @@ const qlikComm = require('../lib/qlik-comm');
 const dataConnections = function (context) {
     return vscode.commands.registerCommand('listDataConnections', async function () {
 
+        let filesChecks = helpers.initialChecks.combined(vscode)
+
+
+
+        
         let panelConfig = {
             vscode: vscode,
             context: context,

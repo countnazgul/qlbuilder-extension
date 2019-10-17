@@ -91,7 +91,34 @@ const panelIcons = function (vscode, context) {
     }
 }
 
+const initialChecks = {
+    config: function (vscode) {
+        let folder = vscode.workspace.workspaceFolders
+
+        if (folder.length > 1) return { error: true, message: 'Too many folders are open' }
+
+        let configPath = `${folder[0].uri.fsPath}\\config.yml`
+
+        if (!fs.existsSync(configPath)) return { error: true, message: 'config.yml is not present in the current folder' }
+
+        let configContent = fs.readFileSync(configPath).toString()
+
+        return { error: false, message: configContent }
+    },
+    homeConfig: function () {
+
+    },
+    combined: function (vscode) {
+        let configOK = this.config(vscode)
+
+        if (configOK.error) return configOK
+
+        return configOK
+    }
+}
+
 module.exports = {
+    initialChecks,
     compare,
     // getNonce,
     // scriptUriBuilder,
