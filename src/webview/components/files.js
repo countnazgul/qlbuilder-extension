@@ -14,8 +14,8 @@ Vue.component('files-list', {
     },
     template: `
     <div class="files">
-    <div class="f-header">Files</div>
-    <div class="f-ops">
+    <div class="f-header border-bottom">FILES</div>
+    <div class="f-ops border-bottom">
         <div><span @click="goBack" class="lui-icon  lui-icon--back up link" aria-hidden="true" title="Up one level"></span></div>
         <div class="path">{{currentFullFolder}}</div>
         <div><input class="lui-input lui-disabled" placeholder="Not working yet" /></div>
