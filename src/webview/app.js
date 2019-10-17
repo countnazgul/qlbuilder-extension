@@ -52,6 +52,7 @@ Vue.component('user-name', {
     <div class="main">
       <div class="container" v-if="loaders.main">
         <data-connections :dcList="dcList" @refreshDCList="getConnections"></data-connections>
+        <div class="separate"></div>
         <div v-if="showers.files" class="fl" :class="{ center: !loaders.files }">
           <files-list v-if="loaders.files"></files-list>
           <div v-if="!loaders.files">

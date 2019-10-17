@@ -13,8 +13,8 @@ Vue.component('data-connections', {
     },
     template: `
     <div class="data-connections">
-      <div class="dc-header">Data Connections</div>
-      <div @click="refreshDCList" class="dc-control">
+      <div class="dc-header border-bottom">DATA CONNECTIONS</div>
+      <div @click="refreshDCList" class="dc-control border-bottom">
         <span class="lui-icon  lui-icon--reload link" aria-hidden="true" title="Refresh the list"></span>
       </div>
       <div class="dc-list" v-for="dc in dcList" :key="dc.qId">
