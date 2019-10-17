@@ -7,11 +7,31 @@ const qlikComm = require('../lib/qlik-comm');
 const dataConnections = function (context) {
     return vscode.commands.registerCommand('listDataConnections', async function () {
 
-        let filesChecks = helpers.initialChecks.combined(vscode)
+        let filesChecks = helpers.configChecks.combined(vscode)
 
+        if (filesChecks.error) {
+            vscode.window.showErrorMessage(filesChecks.message)
+            return false
+        }
 
+        let environmentNames = filesChecks.message.coreConfig.map(function (e) {
+            return e.name
+        })
 
-        
+        let selectedEnvironment = await vscode.window.showQuickPick(environmentNames)
+
+        let environmentChecks = helpers.environmentChecks.combined(selectedEnvironment, filesChecks.message)
+
+        if (environmentChecks.error) {
+            vscode.window.showErrorMessage(environmentChecks.message)
+            return false
+        }
+
+        // let environmentDetails = {
+        //     core:,
+        //     home:
+        // }
+
         let panelConfig = {
             vscode: vscode,
             context: context,
