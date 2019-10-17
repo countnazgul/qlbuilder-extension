@@ -2,17 +2,29 @@ const enigma = require('enigma.js');
 const WebSocket = require('ws');
 const schema = require('enigma.js/schemas/12.20.0.json');
 
-const getQlikDoc = async function () {
+const getQlikDoc = async function (config) {
+    let wsUri = `ws://${config.core.host}`
+
+    if (!config.core.secure == undefined) {
+        wsUri = `ws://${config.core.host}`
+    }
+
+    if (config.core.secure) {
+        wsUri = `wss://${config.core.host}`
+    }    
+
+    wsUri += `/app/engineData/identity/${+new Date()}`
+
     const session = enigma.create({
         schema,
-        url: `ws://localhost:4848/app/engineData/identity/${+new Date()}`,
+        url: wsUri,
         createSocket: url => new WebSocket(url),
     });
 
     let global = await session.open()
-    let docs = await global.getDocList()
+    // let docs = await global.getDocList()
 
-    let doc = await global.openDoc(docs[1].qDocId)
+    let doc = await global.openDoc(config.core.appId)
 
     return doc
 }

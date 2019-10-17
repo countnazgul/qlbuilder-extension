@@ -145,18 +145,19 @@ const environmentChecks = {
     //     return { error: false, message: environment[0] }
 
     // },
-    home: function (selectedEnvironment, config) {
-        if (!config[selectedEnvironment]) return { error: true, message: 'The selected environment was not found in the home config .qlbuilder file' }
+    home: function (selectedEnvironment, config, coreEnv) {
+        if (coreEnv.host.indexOf(':4848')) return { error: false, message: 'QS Desktop' }
+        if (!config.homeConfig[selectedEnvironment]) return { error: true, message: 'The selected environment was not found in the home config .qlbuilder file' }
 
-        return config[selectedEnvironment]
+        return config.homeConfig[selectedEnvironment]
     },
     combined: function (selectedEnvironment, config) {
-        let homeCheck = this.home(selectedEnvironment, config.homeConfig)
-        if (homeCheck.error) return homeCheck
-
         let coreEnv = config.coreConfig.filter(function (e) {
             return e.name == selectedEnvironment
         })
+
+        let homeCheck = this.home(selectedEnvironment, config, coreEnv[0])
+        if (homeCheck.error) return homeCheck
 
         return {
             error: false,

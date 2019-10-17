@@ -27,11 +27,6 @@ const dataConnections = function (context) {
             return false
         }
 
-        // let environmentDetails = {
-        //     core:,
-        //     home:
-        // }
-
         let panelConfig = {
             vscode: vscode,
             context: context,
@@ -43,7 +38,7 @@ const dataConnections = function (context) {
         panel.webview.html = helpers.getWebviewContent(vscode, context, panel)
         panel.iconPath = helpers.panelIcons(vscode, context)
 
-        let qDoc = await qlikComm.getQlikDoc()
+        let qDoc = await qlikComm.getQlikDoc(environmentChecks.message)
 
         panel.postMessage({
             command: 'docOpen'
