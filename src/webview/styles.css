@@ -95,6 +95,28 @@ body {
   transform: translate(-50%, -50%);
 }
 
+table {
+  table-layout: fixed;
+}
+
+table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+}
+
+.data-preview {
+  display: grid;
+  grid-template-rows: 50px 1fr;
+}
+
+.data-preview-header {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;

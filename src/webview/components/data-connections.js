@@ -17,8 +17,8 @@ Vue.component('data-connections', {
       <div @click="refreshDCList" class="dc-control border-bottom">
         <span class="lui-icon  lui-icon--reload link" aria-hidden="true" title="Refresh the list"></span>
       </div>
-      <div class="dc-list" v-for="dc in dcList" :key="dc.qId">
-        <data-connection :dc="dc" ></data-connection>
+      <div class="dc-list">
+        <data-connection v-for="dc in dcList" :key="dc.qId" :dc="dc" ></data-connection>
       </div>
     </div>`
 })

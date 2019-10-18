@@ -15,7 +15,11 @@ const store = new Vuex.Store({
             dataConnections: false,
             files: false
         },
-        isDataPreview: false
+        isDataPreview: false,
+        dataPreview: {
+            header: [],
+            rows: []
+        }
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -41,6 +45,17 @@ const store = new Vuex.Store({
         },
         SET_SHOWER: function (state, { shower, value }) {
             state.showers[shower] = value
+        },
+        SET_DATAPREVIEW: function (state, data) {
+            state.dataPreview = data
+            state.isDataPreview = true
+        },
+        SET_DATAPREVIEW_VISIBLE: function (state, data) {
+            state.isDataPreview = data
+            state.dataPreview = {
+                header: [],
+                rows: []
+            }
         }
     },
     actions: {
@@ -97,6 +112,19 @@ const store = new Vuex.Store({
                     path: state.current.folderLevel.join('\\') + '' + data
                 }
             })
+        },
+        setDataPreview: function ({ commit, state }, data) {
+            let rowsData = [...data.qPreview]
+            rowsData.splice(0, 1)
+
+            let tableData = {
+                header: data.qPreview[0].qValues,
+                rows: rowsData
+            }
+            commit('SET_DATAPREVIEW', tableData)
+        },
+        setDataPreviewVisible: function ({ commit }, data) {
+            commit('SET_DATAPREVIEW_VISIBLE', data)
         }
     },
     getters: {
@@ -127,6 +155,9 @@ const store = new Vuex.Store({
         },
         isDataPreview: function (state) {
             return state.isDataPreview
+        },
+        dataPreview: function (state) {
+            return state.dataPreview
         }
     }
 })

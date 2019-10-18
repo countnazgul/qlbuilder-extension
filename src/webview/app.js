@@ -48,7 +48,7 @@ Vue.component('user-name', {
                     store.dispatch('setFiles', message.text)
                     break;
                 case 'sendDataPreview':
-                    store.dispatch('setDataPreview', message.text)
+                    store.dispatch('setDataPreview', message.data)
                     break;
             }
 
