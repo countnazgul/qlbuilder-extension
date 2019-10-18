@@ -9,6 +9,10 @@ Vue.component('file', {
             if (this.type == 'folder') {
                 store.dispatch('getFolderContent', this.file.qName);
             }
+
+            if (this.type == 'file') {
+                store.dispatch('getDataPreview', this.file.qName);
+            }            
         }
     },
     created: function () {

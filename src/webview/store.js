@@ -14,7 +14,8 @@ const store = new Vuex.Store({
             main: false,
             dataConnections: false,
             files: false
-        }
+        },
+        isDataPreview: false
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -40,7 +41,7 @@ const store = new Vuex.Store({
         },
         SET_SHOWER: function (state, { shower, value }) {
             state.showers[shower] = value
-        }        
+        }
     },
     actions: {
         setVSCode: function ({ commit }, data) {
@@ -87,13 +88,23 @@ const store = new Vuex.Store({
         setFiles: function ({ commit, state }, data) {
             commit('SET_FILES', data)
             commit('SET_LOADER', { loader: 'files', value: true })
+        },
+        getDataPreview: function ({ commit, state }, data) {
+            state.vscode.postMessage({
+                command: 'getDataPreview',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    path: state.current.folderLevel.join('\\') + '' + data
+                }
+            })
         }
     },
     getters: {
         connections: function (state) {
-            return state.dataConnections.filter(function (d) {
-                return d.description == 'folder'
-            })
+            // return state.dataConnections.filter(function (d) {
+            //     return d.description == 'folder'
+            // })
+            return state.dataConnections
         },
         files: function (state) {
             return state.files
@@ -113,6 +124,9 @@ const store = new Vuex.Store({
         },
         showers: function (state) {
             return state.showers
-        }        
+        },
+        isDataPreview: function (state) {
+            return state.isDataPreview
+        }
     }
 })

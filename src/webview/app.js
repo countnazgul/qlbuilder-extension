@@ -12,6 +12,9 @@ Vue.component('user-name', {
         showers() {
             return store.getters.showers
         },
+        isDataPreview() {
+            return store.getters.isDataPreview
+        },
         vscode() {
             return store.getters.vscode
         }
@@ -44,25 +47,31 @@ Vue.component('user-name', {
                 case 'sendFiles':
                     store.dispatch('setFiles', message.text)
                     break;
+                case 'sendDataPreview':
+                    store.dispatch('setDataPreview', message.text)
+                    break;
             }
 
         });
     },
     template: `
     <div class="main">
-      <div class="container" v-if="loaders.main">
-        <data-connections :dcList="dcList" @refreshDCList="getConnections"></data-connections>
-        <div class="separate"></div>
-        <div v-if="showers.files" class="fl" :class="{ center: !loaders.files }">
-          <files-list v-if="loaders.files"></files-list>
-          <div v-if="!loaders.files">
-            <loader/>
-          </div>
+        <div v-if="!isDataPreview">
+            <div class="container" v-if="loaders.main">
+                <data-connections :dcList="dcList" @refreshDCList="getConnections"></data-connections>
+                <div class="separate"></div>
+                <div v-if="showers.files" class="fl" :class="{ center: !loaders.files }">
+                    <files-list v-if="loaders.files"></files-list>
+                    <div v-if="!loaders.files">
+                        <loader />
+                    </div>
+                </div>
+            </div>
+            <div v-if="!loaders.main" class="main-loader">
+                <loader />
+            </div>
         </div>
-      </div>
-      <div v-if="!loaders.main" class="main-loader">
-        <loader/>
-      </div>
+        <data-preview v-if="isDataPreview"></data-preview>
     </div>
     `
 })

@@ -1,8 +1,7 @@
-const listDataConnections = require('./commands/listDataConnections')
+const dataConnections = require('./commands/dataConnections')
 
 function activate(context) {
-	// console.log('Congratulations, your extension "qlbuilder-extension" is now active!');
-	context.subscriptions.push(listDataConnections(context));
+	context.subscriptions.push(dataConnections(context));
 }
 exports.activate = activate;
 

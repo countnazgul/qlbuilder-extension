@@ -11,13 +11,13 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:listDataConnections"
+		"onCommand:dataConnections"
 	],
 	"main": "./src/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "listDataConnections",
+				"command": "dataConnections",
 				"title": "Data Sources (QlikSense)",
 				"category": "qlbuilder"
 			}

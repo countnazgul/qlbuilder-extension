@@ -45,7 +45,12 @@ const webResources = [
         name: 'loader_uri',
         folder: 'src/webview/components',
         file: 'loader.js'
-    },     
+    },
+    {
+        name: 'datapreview_uri',
+        folder: 'src/webview/components',
+        file: 'data-preview.js'
+    },    
     {
         name: 'styles_uri',
         folder: 'src/webview',
