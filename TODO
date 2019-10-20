@@ -1,3 +1,24 @@
+General:
+    ☐ change the `message.text` to `message.data` where  needed @low 
+
+UI:
+    ☐ connections and files/folders list - use leonardo list @high 
+
+Data Preview:
+    ☐ Styling ... a lot
+    ☐ Specific layout for each of the recognised formats:
+        ✔ CSV for Delimited @high @single-table @done(19-10-20 04:56)
+        ☐ FIX for Fixed Record @low @single-table 
+        ☐ DIF for Data Interchange Format @low @single-table 
+        ☐ EXCEL_BIFF for Microsoft Excel (XLS) @high @multi-table 
+        ☐ EXCEL_OOXML for Microsoft Excel (XLSX) @high @multi-table 
+        ☐ HTMLfor HTML @low @multi-table 
+        ✔ QVD for QVD file @high @single-table @done(19-10-20 05:01)
+        ☐ XML for XML @medium @multi-table 
+        ☐ QVX for QVX file @high @single-table 
+        ☐ JSON for JSON format @medium @multi-table 
+        ☐ KML for KML file @low @multi-table 
+
 Archive:
   ✔ Remove fonts which are not required at the end @done(19-10-17 13:25) @project(Global)
   ✔ clear the template html when the ui logic is in place @done(19-10-17 13:24) @project(UI)

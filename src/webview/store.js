@@ -5,6 +5,7 @@ const store = new Vuex.Store({
         files: [],
         current: {
             dataConnection: '',
+            file: '',
             folderLevel: []
         },
         showers: {
@@ -14,7 +15,13 @@ const store = new Vuex.Store({
             main: false,
             dataConnections: false,
             files: false
-        }
+        },
+        isDataPreview: false,
+        dataPreview: {
+            header: [],
+            rows: []
+        },
+        fileType: {}
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -32,6 +39,9 @@ const store = new Vuex.Store({
         SET_CURRENT_LEVEL_BACK: function (state) {
             state.current.folderLevel.pop()
         },
+        SET_CURRENT_FILE: function (state, data) {
+            state.current.file = data
+        },
         SET_FILES: function (state, files) {
             state.files = files
         },
@@ -40,7 +50,21 @@ const store = new Vuex.Store({
         },
         SET_SHOWER: function (state, { shower, value }) {
             state.showers[shower] = value
-        }        
+        },
+        SET_DATAPREVIEW: function (state, data) {
+            state.dataPreview = data.tableData
+            state.fileType = data.fileType
+            state.isDataPreview = true
+        },
+        SET_DATAPREVIEW_VISIBLE: function (state, data) {
+            state.isDataPreview = data.tableData
+            state.dataPreview = {
+                header: [],
+                rows: []
+            }
+
+            state.fileType = {}
+        }
     },
     actions: {
         setVSCode: function ({ commit }, data) {
@@ -87,13 +111,51 @@ const store = new Vuex.Store({
         setFiles: function ({ commit, state }, data) {
             commit('SET_FILES', data)
             commit('SET_LOADER', { loader: 'files', value: true })
+        },
+        getDataPreview: function ({ commit, state }, data) {
+            state.vscode.postMessage({
+                command: 'getDataPreview',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    path: state.current.folderLevel.join('\\') + '' + data
+                }
+            })
+            commit('SET_CURRENT_FILE', data)
+        },
+        setDataPreview: function ({ commit, state }, data) {
+            let rowsData = [...data.dataPreview.qPreview]
+            rowsData.splice(0, 1)
+
+            let tableData = {
+                header: data.dataPreview.qPreview[0].qValues,
+                rows: rowsData
+            }
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType })
+        },
+        setDataPreviewVisible: function ({ commit }, data) {
+            commit('SET_DATAPREVIEW_VISIBLE', data)
+        },
+        changeFileType: function ({ state, commit }, data) {
+            let options = state.fileType
+            options[data.prop] = data.value
+
+            state.vscode.postMessage({
+                command: 'getDataPreview',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    path: state.current.folderLevel.join('\\') + '' + state.current.file,
+                    options: options
+                }
+            })
+
         }
     },
     getters: {
         connections: function (state) {
-            return state.dataConnections.filter(function (d) {
-                return d.description == 'folder'
-            })
+            // return state.dataConnections.filter(function (d) {
+            //     return d.description == 'folder'
+            // })
+            return state.dataConnections
         },
         files: function (state) {
             return state.files
@@ -108,11 +170,23 @@ const store = new Vuex.Store({
 
             return ''
         },
+        currentFile: function (state) {
+            return state.current.file
+        },
         loaders: function (state) {
             return state.loaders
         },
         showers: function (state) {
             return state.showers
-        }        
+        },
+        isDataPreview: function (state) {
+            return state.isDataPreview
+        },
+        dataPreview: function (state) {
+            return state.dataPreview
+        },
+        fileType: function (state) {
+            return state.fileType
+        }
     }
 })

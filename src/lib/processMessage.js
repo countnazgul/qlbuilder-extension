@@ -20,17 +20,25 @@ const process = {
             text: filesList
         }
     },
-    getFileDataPreview: async function (qDoc, message) {
-        let a1 = 1
-        let fileType = await qDoc.guessFileType(message.connectionId, message.path)
-        // let fileTableAndFields = await qDoc.getFileTableFields(message.connectionId, message.path, fileType, '')
-        let fileTablePreview = await qDoc.getFileTablePreview(message.connectionId, message.path, fileType, '')
-        let loadScript = helpers.createLoadScript(fileTablePreview)
+    getDataPreview: async function (qDoc, message) {
+        let fileType = {}
+
+        if (message.data.options) {
+            fileType = message.data.options
+        } else {
+            fileType = await qDoc.guessFileType(message.data.connectionId, message.data.path)
+        }
+
+        let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, '')
+        let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, '')
+        // let loadScript = helpers.createLoadScript(fileTablePreview)
 
         return {
-            command: 'fileDataPreview',
-            connectionId: message.connectionId,
-            text: fileTablePreview
+            command: 'sendDataPreview',
+            data: {
+                dataPreview: fileTablePreview,
+                fileType: fileType
+            }
         }
     }
 }

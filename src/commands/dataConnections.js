@@ -5,7 +5,7 @@ const processMessage = require('../lib/processMessage');
 const qlikComm = require('../lib/qlik-comm');
 
 const dataConnections = function (context) {
-    return vscode.commands.registerCommand('listDataConnections', async function () {
+    return vscode.commands.registerCommand('dataConnections', async function () {
 
         let filesChecks = helpers.configChecks.combined(vscode)
 
@@ -19,6 +19,10 @@ const dataConnections = function (context) {
         })
 
         let selectedEnvironment = await vscode.window.showQuickPick(environmentNames)
+
+        if (!selectedEnvironment) {
+            return false
+        }
 
         let environmentChecks = helpers.environmentChecks.combined(selectedEnvironment, filesChecks.message)
 
