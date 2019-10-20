@@ -13,9 +13,15 @@ Vue.component('data-preview', {
         fileType() {
             return store.getters.fileType
         },
+        fileTables() {
+            return store.getters.fileTables
+        },        
         currentFile() {
             return store.getters.currentFile
-        }
+        },
+        currentTable() {
+            return store.getters.currentTable
+        }        
     },
     created: function () {
 
@@ -27,7 +33,8 @@ Vue.component('data-preview', {
             <div>{{currentFile}}</div>
         </div>        
         <div>
-        <csv v-if="fileType.qType =='CSV'"></csv>
+        <csv v-if="fileType.qType =='CSV'" :fileType="fileType" :tableData="tableData"></csv>
+        <csv v-if="fileType.qType =='EXCEL_OOXML'" :fileType="fileType" :tableData="tableData" :fileTables="fileTables" :currentTable="currentTable"></csv>
         </div>
     </div>
     <div class="data-preview-table-container">
