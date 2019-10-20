@@ -34,7 +34,7 @@ Vue.component('data-preview', {
         </div>        
         <div>
         <csv v-if="fileType.qType =='CSV'" :fileType="fileType" :tableData="tableData"></csv>
-        <csv v-if="fileType.qType =='EXCEL_OOXML'" :fileType="fileType" :tableData="tableData" :fileTables="fileTables" :currentTable="currentTable"></csv>
+        <csv v-if="fileType.qType =='EXCEL_OOXML' || fileType.qType =='EXCEL_BIFF'" :fileType="fileType" :tableData="tableData" :fileTables="fileTables" :currentTable="currentTable"></csv>
         </div>
     </div>
     <div class="data-preview-table-container">

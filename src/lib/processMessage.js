@@ -35,8 +35,8 @@ const process = {
             fileType = await qDoc.guessFileType(message.data.connectionId, message.data.path)
         }
 
-        if (fileType.qType == 'EXCEL_OOXML') {
-            fileTables = await qDoc.getFileTables(message.data.connectionId, message.data.path, { qType: 'EXCEL_OOXML' })
+        if (fileType.qType == 'EXCEL_OOXML'  || fileType.qType == 'EXCEL_BIFF') {
+            fileTables = await qDoc.getFileTables(message.data.connectionId, message.data.path, { qType: fileType.qType })
 
             if (!message.data.currentTable) {
                 currentTable = fileTables[0].qName
