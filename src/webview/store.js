@@ -22,7 +22,8 @@ const store = new Vuex.Store({
             rows: []
         },
         fileType: {},
-        fileTables: []
+        fileTables: [],
+        currentTable: ''
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -56,6 +57,7 @@ const store = new Vuex.Store({
             state.dataPreview = data.tableData
             state.fileType = data.fileType
             state.fileTables = data.fileTables
+            state.currentTable = data.currentTable
             state.isDataPreview = true
         },
         SET_DATAPREVIEW_VISIBLE: function (state, data) {
@@ -66,6 +68,9 @@ const store = new Vuex.Store({
             }
 
             state.fileType = {}
+        },
+        CHANGE_TABLE: function(state, data) {
+            state.currentTable = data
         }
     },
     actions: {
@@ -132,7 +137,13 @@ const store = new Vuex.Store({
                 header: data.dataPreview.qPreview[0].qValues,
                 rows: rowsData
             }
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables })
+
+            let currentTable = data.currentTable
+            if (currentTable == '' && !data.fileTables) {
+                currentTable = data.fileTables[0].qName
+            }
+
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables, currentTable: currentTable })
         },
         setDataPreviewVisible: function ({ commit }, data) {
             commit('SET_DATAPREVIEW_VISIBLE', data)
@@ -150,6 +161,20 @@ const store = new Vuex.Store({
                 }
             })
 
+        },
+        changeTable: function ({ state, commit }, data) {
+
+            state.vscode.postMessage({
+                command: 'getDataPreview',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    path: state.current.folderLevel.join('\\') + '' + state.current.file,
+                    options: state.fileType,
+                    currentTable: data
+                }
+            })
+
+            commit('CHANGE_TABLE', data)
         }
     },
     getters: {
@@ -191,7 +216,10 @@ const store = new Vuex.Store({
             return state.fileType
         },
         fileTables: function (state) {
-            return [1,2,3]
+            return state.fileTables
+        },
+        currentTable: function (state) {
+            return state.currentTable
         }
     }
 })
