@@ -1,7 +1,7 @@
 const csp = function (nonce) {
     let csp = [
         `default-src 'nonce-${nonce}' 'unsafe-eval' https:`,
-        `img-src vscode-resource:`,
+        `img-src vscode-resource: data:`,
         `script-src 'nonce-${nonce}' 'unsafe-eval' https: cdn.jsdelivr.net 'self'`,
         `style-src vscode-resource: 'nonce-${nonce}'`,
         `font-src vscode-resource: 'nonce-${nonce}'`
@@ -50,7 +50,12 @@ const webResources = [
         name: 'datapreview_uri',
         folder: 'src/webview/components',
         file: 'data-preview.js'
-    },    
+    },
+    {
+        name: 'dp_csv_uri',
+        folder: 'src/webview/components/fileTypes',
+        file: 'csv.js'
+    },     
     {
         name: 'styles_uri',
         folder: 'src/webview',

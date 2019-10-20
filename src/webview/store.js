@@ -5,6 +5,7 @@ const store = new Vuex.Store({
         files: [],
         current: {
             dataConnection: '',
+            file: '',
             folderLevel: []
         },
         showers: {
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
         dataPreview: {
             header: [],
             rows: []
-        }
+        },
+        fileType: {}
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -37,6 +39,9 @@ const store = new Vuex.Store({
         SET_CURRENT_LEVEL_BACK: function (state) {
             state.current.folderLevel.pop()
         },
+        SET_CURRENT_FILE: function (state, data) {
+            state.current.file = data
+        },
         SET_FILES: function (state, files) {
             state.files = files
         },
@@ -47,15 +52,18 @@ const store = new Vuex.Store({
             state.showers[shower] = value
         },
         SET_DATAPREVIEW: function (state, data) {
-            state.dataPreview = data
+            state.dataPreview = data.tableData
+            state.fileType = data.fileType
             state.isDataPreview = true
         },
         SET_DATAPREVIEW_VISIBLE: function (state, data) {
-            state.isDataPreview = data
+            state.isDataPreview = data.tableData
             state.dataPreview = {
                 header: [],
                 rows: []
             }
+
+            state.fileType = {}
         }
     },
     actions: {
@@ -112,19 +120,34 @@ const store = new Vuex.Store({
                     path: state.current.folderLevel.join('\\') + '' + data
                 }
             })
+            commit('SET_CURRENT_FILE', data)
         },
         setDataPreview: function ({ commit, state }, data) {
-            let rowsData = [...data.qPreview]
+            let rowsData = [...data.dataPreview.qPreview]
             rowsData.splice(0, 1)
 
             let tableData = {
-                header: data.qPreview[0].qValues,
+                header: data.dataPreview.qPreview[0].qValues,
                 rows: rowsData
             }
-            commit('SET_DATAPREVIEW', tableData)
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType })
         },
         setDataPreviewVisible: function ({ commit }, data) {
             commit('SET_DATAPREVIEW_VISIBLE', data)
+        },
+        changeFileType: function ({ state, commit }, data) {
+            let options = state.fileType
+            options[data.prop] = data.value
+
+            state.vscode.postMessage({
+                command: 'getDataPreview',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    path: state.current.folderLevel.join('\\') + '' + state.current.file,
+                    options: options
+                }
+            })
+
         }
     },
     getters: {
@@ -147,6 +170,9 @@ const store = new Vuex.Store({
 
             return ''
         },
+        currentFile: function (state) {
+            return state.current.file
+        },
         loaders: function (state) {
             return state.loaders
         },
@@ -158,6 +184,9 @@ const store = new Vuex.Store({
         },
         dataPreview: function (state) {
             return state.dataPreview
+        },
+        fileType: function (state) {
+            return state.fileType
         }
     }
 })

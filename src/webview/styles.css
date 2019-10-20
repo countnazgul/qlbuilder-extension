@@ -97,6 +97,20 @@ body {
 
 table {
   table-layout: fixed;
+  border-collapse: collapse;
+}
+
+table th {
+  border: 1px solid #e6e6e6;
+  font-weight: 400;
+  text-align: left;
+  min-width: 80px;
+  max-width: 200px;
+  background: rgba(0, 0, 0, .05);
+  padding: 1px 5px 1px 4px;
+  border-bottom: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+  white-space: nowrap;
 }
 
 table td {
@@ -104,17 +118,57 @@ table td {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 300px;
+  border: 1px solid #e6e6e6;
 }
+
+/* table tr {
+  border-bottom-color: rgb(128, 128, 128);
+  border-collapse: collapse;
+  border-left-color: rgb(128, 128, 128);
+  border-right-color: rgb(128, 128, 128);
+  border-top-color: rgb(128, 128, 128);
+} */
 
 .data-preview {
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 90px 1fr;
 }
 
 .data-preview-header {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  /* grid-template-columns: 30px 400px; */
+  grid-template-rows: 30px 50px;
+}
+
+.data-preview-ops {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+}
+
+.data-preview-table-container {
+  max-height: calc(100vh - 90px);
+  overflow: auto;
+}
+
+.data-preview-table {
+  font-size: 13px;
+}
+
+.csv-options {
+  display: grid;
+  grid-template-columns: 200px 150px 200px;
+  ;
+  grid-gap: 10px;
+}
+
+.options-components {
+  display: grid;
+  grid-template-rows: 12px 1fr;
+  grid-gap: 5px;
+}
+
+.label {
+  font-size: 12px
 }
 
 .lds-ellipsis {

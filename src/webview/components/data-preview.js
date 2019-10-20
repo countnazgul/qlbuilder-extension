@@ -9,16 +9,29 @@ Vue.component('data-preview', {
     computed: {
         tableData() {
             return store.getters.dataPreview
+        },
+        fileType() {
+            return store.getters.fileType
+        },
+        currentFile() {
+            return store.getters.currentFile
         }
     },
     created: function () {
 
     },
     template: `<div class="data-preview">
-        <div class="data-preview-header">
-        <div><span @click="goBack" class="lui-icon  lui-icon--back link" aria-hidden="true" title="Back to data connections"></span></div>
-            </div>
-        <table>
+    <div class="data-preview-header">
+        <div class="data-preview-ops">
+            <span @click="goBack" class="lui-icon  lui-icon--back link" aria-hidden="true" title="Back to data connections"></span>            
+            <div>{{currentFile}}</div>
+        </div>        
+        <div>
+        <csv v-if="fileType.qType =='CSV'"></csv>
+        </div>
+    </div>
+    <div class="data-preview-table-container">
+        <table class="data-preview-table">
             <thead>
                 <th v-for="head in tableData.header" :key="head">{{head}}</th>
             </thead>
@@ -27,6 +40,7 @@ Vue.component('data-preview', {
                     <td v-for="cell in row.qValues" :title="cell">{{cell}}</td>
                 </tr>
             <tbody>
-        </table>    
-    </div>`,
+        </table>
+    </div>
+</div>`,
 })

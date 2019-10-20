@@ -20,6 +20,10 @@ const dataConnections = function (context) {
 
         let selectedEnvironment = await vscode.window.showQuickPick(environmentNames)
 
+        if (!selectedEnvironment) {
+            return false
+        }
+
         let environmentChecks = helpers.environmentChecks.combined(selectedEnvironment, filesChecks.message)
 
         if (environmentChecks.error) {
