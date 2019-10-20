@@ -2,7 +2,7 @@
 	"name": "qlbuilder-extension",
 	"displayName": "qlbuilder-extension",
 	"description": "",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"publisher": "stefanstoichev",
 	"engines": {
 		"vscode": "^1.39.0"
