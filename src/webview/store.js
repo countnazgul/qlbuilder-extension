@@ -21,7 +21,8 @@ const store = new Vuex.Store({
             header: [],
             rows: []
         },
-        fileType: {}
+        fileType: {},
+        fileTables: []
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -54,6 +55,7 @@ const store = new Vuex.Store({
         SET_DATAPREVIEW: function (state, data) {
             state.dataPreview = data.tableData
             state.fileType = data.fileType
+            state.fileTables = data.fileTables
             state.isDataPreview = true
         },
         SET_DATAPREVIEW_VISIBLE: function (state, data) {
@@ -130,7 +132,7 @@ const store = new Vuex.Store({
                 header: data.dataPreview.qPreview[0].qValues,
                 rows: rowsData
             }
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType })
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables })
         },
         setDataPreviewVisible: function ({ commit }, data) {
             commit('SET_DATAPREVIEW_VISIBLE', data)
@@ -187,6 +189,9 @@ const store = new Vuex.Store({
         },
         fileType: function (state) {
             return state.fileType
+        },
+        fileTables: function (state) {
+            return [1,2,3]
         }
     }
 })

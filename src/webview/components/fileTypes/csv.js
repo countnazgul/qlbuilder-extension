@@ -1,4 +1,5 @@
 Vue.component('csv', {
+    props: ['fileType', 'tableData', 'fileTables'],
     data: {
     },
     methods: {
@@ -16,15 +17,15 @@ Vue.component('csv', {
         },
         changeHeaderSizeMinus: function () {
             store.dispatch('changeFileType', { prop: 'qHeaderSize', value: this.fileType.qHeaderSize - 1 });
-        }        
+        }
     },
     computed: {
-        tableData() {
-            return store.getters.dataPreview
-        },
-        fileType() {
-            return store.getters.fileType
-        }
+        // tableData() {
+        //     return store.getters.dataPreview
+        // },
+        // fileType() {
+        //     return store.getters.fileType
+        // }
     },
     created: function () {
 
@@ -50,7 +51,7 @@ Vue.component('csv', {
         </div>
         </div>
         
-        <div class="options-components">
+        <div v-if="fileType.qType =='CSV'" class="options-components">
         <div class="label">Quoting</div>
         <select v-model="fileType.qQuote" @change="changeQuoting" class="lui-select lui-select--gradient">
             <option value="standard">Standard</option>
@@ -58,6 +59,13 @@ Vue.component('csv', {
             <option value="none">None</option>
             </select>
         </div>
+
+        <div v-if="fileTables.length > 0" class="options-components">
+        <div class="label">Tables</div>
+        <select class="lui-select lui-select--gradient">
+            <option  v-for="table in fileTables" :key="table.qName" value="table.qName">{{table.qName}}</option>
+            </select>
+        </div>        
     </div>  
     </div>`,
 })

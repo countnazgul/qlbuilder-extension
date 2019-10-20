@@ -22,11 +22,16 @@ const process = {
     },
     getDataPreview: async function (qDoc, message) {
         let fileType = {}
+        let fileTables = []
 
         if (message.data.options) {
             fileType = message.data.options
         } else {
             fileType = await qDoc.guessFileType(message.data.connectionId, message.data.path)
+        }
+
+        if (fileType.qType == 'EXCEL_OOXML') {
+            fileTables = await qDoc.getFileTables(message.data.connectionId, message.data.path, { qType: 'EXCEL_OOXML' })
         }
 
         let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, '')
@@ -37,7 +42,8 @@ const process = {
             command: 'sendDataPreview',
             data: {
                 dataPreview: fileTablePreview,
-                fileType: fileType
+                fileType: fileType,
+                fileTables: fileTables
             }
         }
     }
