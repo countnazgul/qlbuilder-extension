@@ -20,12 +20,11 @@ const excel = async function ({ message, fileType, qDoc }) {
 
     if (message.data.currentTable) {
         currentTable = message.data.currentTable
+        // fileTablePreview = message.data.fileTables
     } else {
+        fileTables = await qDoc.getFileTables(message.data.connectionId, message.data.path, { qType: fileType.qType })
         currentTable = fileTables[0].qName
     }
-
-    fileTables = await qDoc.getFileTables(message.data.connectionId, message.data.path, { qType: fileType.qType })
-
 
     // let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, '')
     let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, currentTable)

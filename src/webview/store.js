@@ -56,7 +56,11 @@ const store = new Vuex.Store({
         SET_DATAPREVIEW: function (state, data) {
             state.dataPreview = data.tableData
             state.fileType = data.fileType
-            state.fileTables = data.fileTables
+
+            if (data.fileTables.length > 0) {
+                state.fileTables = data.fileTables
+            }
+
             state.currentTable = data.currentTable
             state.isDataPreview = true
         },
@@ -145,7 +149,7 @@ const store = new Vuex.Store({
 
             commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: [], currentTable: '' })
         },
-        setDataPreview: function ({ commit, state }, data) {
+        setDataPreviewExcel: function ({ commit, state }, data) {
             let rowsData = [...data.dataPreview.qPreview]
             rowsData.splice(0, 1)
 
@@ -155,6 +159,7 @@ const store = new Vuex.Store({
             }
 
             let currentTable = data.currentTable
+
             if (currentTable == '' && !data.fileTables) {
                 currentTable = data.fileTables[0].qName
             }

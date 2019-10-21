@@ -50,6 +50,9 @@ Vue.component('user-name', {
                 case 'sendDataPreviewSingleTable':
                     store.dispatch('setDataPreviewSingleTable', message.data)
                     break;
+                case 'sendDataPreviewExcel':
+                    store.dispatch('setDataPreviewExcel', message.data)
+                    break;
                 case 'sendDataPreview':
                     store.dispatch('setDataPreview', message.data)
                     break;
