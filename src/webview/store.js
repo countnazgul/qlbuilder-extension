@@ -69,7 +69,7 @@ const store = new Vuex.Store({
 
             state.fileType = {}
         },
-        CHANGE_TABLE: function(state, data) {
+        CHANGE_TABLE: function (state, data) {
             state.currentTable = data
         }
     },
@@ -128,6 +128,22 @@ const store = new Vuex.Store({
                 }
             })
             commit('SET_CURRENT_FILE', data)
+        },
+        setDataPreviewSingleTable: function ({ commit, state }, data) {
+            let rowsData = [...data.dataPreview.qPreview]
+            rowsData.splice(0, 1)
+
+            let tableData = {
+                header: data.dataPreview.qPreview[0].qValues,
+                rows: rowsData
+            }
+
+            // let currentTable = data.currentTable
+            // if (currentTable == '' && !data.fileTables) {
+            //     currentTable = data.fileTables[0].qName
+            // }
+
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: [], currentTable: '' })
         },
         setDataPreview: function ({ commit, state }, data) {
             let rowsData = [...data.dataPreview.qPreview]

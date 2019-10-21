@@ -1,4 +1,5 @@
 const qlikComm = require('./qlik-comm');
+const dataPreview = require('./dataPreview');
 const helpers = require('./helpers');
 
 const process = {
@@ -22,12 +23,6 @@ const process = {
     },
     getDataPreview: async function (qDoc, message) {
         let fileType = {}
-        let fileTables = []
-        let currentTable = ''
-
-        if (message.data.currentTable) {
-            currentTable = message.data.currentTable
-        }
 
         if (message.data.options) {
             fileType = message.data.options
@@ -35,28 +30,11 @@ const process = {
             fileType = await qDoc.guessFileType(message.data.connectionId, message.data.path)
         }
 
-        if (fileType.qType == 'EXCEL_OOXML'  || fileType.qType == 'EXCEL_BIFF') {
-            fileTables = await qDoc.getFileTables(message.data.connectionId, message.data.path, { qType: fileType.qType })
 
-            if (!message.data.currentTable) {
-                currentTable = fileTables[0].qName
-            }
+        if (helpers.defineFileType(fileType.qType) == 'single') return await dataPreview.singleTable({ message, fileType, qDoc })
 
-        }
+        if (helpers.defineFileType(fileType.qType) == 'excel') return await dataPreview.excel({ message, fileType, qDoc })
 
-        let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, '')
-        let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, currentTable)
-        // let loadScript = helpers.createLoadScript(fileTablePreview)
-
-        return {
-            command: 'sendDataPreview',
-            data: {
-                dataPreview: fileTablePreview,
-                fileType: fileType,
-                fileTables: fileTables,
-                currentTable: currentTable
-            }
-        }
     }
 }
 
