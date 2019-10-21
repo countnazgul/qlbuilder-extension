@@ -169,6 +169,18 @@ const environmentChecks = {
     }
 }
 
+const defineFileType = function (qType) {
+    let singleTableFiles = ['CSV', 'QVD', 'QVX']
+    let excelFiles = ['EXCEL_BIFF', 'EXCEL_OOXML']
+    let webFiles = ['XML', 'KML', 'JSON', 'HTML']
+
+    if (singleTableFiles.indexOf(qType) > -1) return 'single'
+    if (excelFiles.indexOf(qType) > -1) return 'excel'
+    if (webFiles.indexOf(qType) > -1) return 'web'
+
+    return 'undefined'
+}
+
 module.exports = {
     configChecks,
     environmentChecks,
@@ -176,5 +188,6 @@ module.exports = {
     createLoadScript,
     getWebviewContent,
     createWebViewPanel,
-    panelIcons
+    panelIcons,
+    defineFileType
 }

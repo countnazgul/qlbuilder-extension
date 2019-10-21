@@ -56,7 +56,11 @@ const store = new Vuex.Store({
         SET_DATAPREVIEW: function (state, data) {
             state.dataPreview = data.tableData
             state.fileType = data.fileType
-            state.fileTables = data.fileTables
+
+            if (data.fileTables.length > 0) {
+                state.fileTables = data.fileTables
+            }
+
             state.currentTable = data.currentTable
             state.isDataPreview = true
         },
@@ -69,7 +73,7 @@ const store = new Vuex.Store({
 
             state.fileType = {}
         },
-        CHANGE_TABLE: function(state, data) {
+        CHANGE_TABLE: function (state, data) {
             state.currentTable = data
         }
     },
@@ -129,7 +133,23 @@ const store = new Vuex.Store({
             })
             commit('SET_CURRENT_FILE', data)
         },
-        setDataPreview: function ({ commit, state }, data) {
+        setDataPreviewSingleTable: function ({ commit, state }, data) {
+            let rowsData = [...data.dataPreview.qPreview]
+            rowsData.splice(0, 1)
+
+            let tableData = {
+                header: data.dataPreview.qPreview[0].qValues,
+                rows: rowsData
+            }
+
+            // let currentTable = data.currentTable
+            // if (currentTable == '' && !data.fileTables) {
+            //     currentTable = data.fileTables[0].qName
+            // }
+
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: [], currentTable: '' })
+        },
+        setDataPreviewExcel: function ({ commit, state }, data) {
             let rowsData = [...data.dataPreview.qPreview]
             rowsData.splice(0, 1)
 
@@ -139,6 +159,7 @@ const store = new Vuex.Store({
             }
 
             let currentTable = data.currentTable
+
             if (currentTable == '' && !data.fileTables) {
                 currentTable = data.fileTables[0].qName
             }
