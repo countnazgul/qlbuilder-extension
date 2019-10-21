@@ -24,14 +24,15 @@ Vue.component('csv', {
     },
     computed: {
         fileTypeClass() {
-            if(this.fileType.combinedType == 'single') return 'csv-options'
+            if(this.fileType.combinedType == 'single' && this.fileType.qType == 'CSV') return 'csv-options'
+            // if(this.fileType.combinedType == 'single' && this.fileType.qType != 'CSV') return 'qvd-options'
             if(this.fileType.combinedType == 'excel') return 'excel-options'
         }
     },
     created: function () {
 
     },
-    template: `<div>
+    template: `<div">
         <div :class="fileTypeClass">
         
         <div v-if="fileTables && fileTables.length > 0" class="options-components">
@@ -60,7 +61,7 @@ Vue.component('csv', {
             </div>
         </div>
         
-        <div v-if="fileType.qType =='CSV'" class="options-components">
+        <div v-if="fileType.combinedType =='single'" class="options-components">
             <div class="label">Quoting</div>
                 <select v-model="fileType.qQuote" @change="changeQuoting" class="lui-select lui-select--gradient">
                     <option value="standard">Standard</option>
