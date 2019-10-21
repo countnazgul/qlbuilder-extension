@@ -31,9 +31,15 @@ const process = {
         }
 
 
-        if (helpers.defineFileType(fileType.qType) == 'single') return await dataPreview.singleTable({ message, fileType, qDoc })
+        if (helpers.defineFileType(fileType.qType) == 'single') {
+            fileType.combinedType = 'single'
+            return await dataPreview.singleTable({ message, fileType, qDoc })
+        }
 
-        if (helpers.defineFileType(fileType.qType) == 'excel') return await dataPreview.excel({ message, fileType, qDoc })
+        if (helpers.defineFileType(fileType.qType) == 'excel') {
+            fileType.combinedType = 'excel'
+            return await dataPreview.excel({ message, fileType, qDoc })
+        }
 
     }
 }

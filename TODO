@@ -6,13 +6,14 @@ UI:
     ☐ connections and files/folders list - use leonardo list @high 
     ☐ Files section - add refresh button @medium 
     ☐ change the layout of the current folder text (should not be on more than one row?) @low 
+    ☐ highlight the active data connection
     ☐ Search @high 
         ☐ search files
         ☐ search data connections
 
 Data Preview:
     ☐ Styling ... a lot @high 
-    ☐ Review the whole data preview logic and workflow. Should be done better! @high 
+    ✔ Review the whole data preview logic and workflow. Should be done better! @high @done(19-10-21 21:30)
     ☐ Generate and show the load script @medium 
         ☐ insert the generated load script into the current file (optional) 
     ☐ Specific layout for each of the recognised formats:

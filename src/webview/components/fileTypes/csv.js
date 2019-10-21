@@ -23,18 +23,16 @@ Vue.component('csv', {
         }
     },
     computed: {
-        // tableData() {
-        //     return store.getters.dataPreview
-        // },
-        // fileType() {
-        //     return store.getters.fileType
-        // }
+        fileTypeClass() {
+            if(this.fileType.combinedType == 'single') return 'csv-options'
+            if(this.fileType.combinedType == 'excel') return 'excel-options'
+        }
     },
     created: function () {
 
     },
     template: `<div>
-        <div class="csv-options">
+        <div :class="fileTypeClass">
         
         <div v-if="fileTables && fileTables.length > 0" class="options-components">
             <div class="label">Tables</div>

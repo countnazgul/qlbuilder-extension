@@ -155,7 +155,14 @@ table td {
 
 .csv-options {
   display: grid;
-  grid-template-columns: 200px 150px 200px;
+  grid-template-columns: 200px 130px 100px;
+  grid-gap: 10px;
+  margin-bottom: 5px;
+}
+
+.excel-options {
+  display: grid;
+  grid-template-columns: 300px 200px 130px;
   grid-gap: 10px;
   margin-bottom: 5px;
 }
