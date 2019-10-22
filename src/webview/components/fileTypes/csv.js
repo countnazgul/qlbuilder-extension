@@ -1,7 +1,5 @@
 Vue.component('csv', {
     props: ['fileType', 'tableData', 'fileTables', 'currentTable'],
-    data: {
-    },
     methods: {
         goBack: function () {
             store.dispatch('setDataPreviewVisible', false);
@@ -24,15 +22,14 @@ Vue.component('csv', {
     },
     computed: {
         fileTypeClass() {
-            if(this.fileType.combinedType == 'single' && this.fileType.qType == 'CSV') return 'csv-options'
-            // if(this.fileType.combinedType == 'single' && this.fileType.qType != 'CSV') return 'qvd-options'
-            if(this.fileType.combinedType == 'excel') return 'excel-options'
-        }
+            if (this.fileType.combinedType == 'single' && this.fileType.qType == 'CSV') return 'csv-options'
+            if (this.fileType.combinedType == 'excel') return 'excel-options'
+        }       
     },
     created: function () {
 
     },
-    template: `<div">
+    template: `<div>
         <div :class="fileTypeClass">
         
         <div v-if="fileTables && fileTables.length > 0" class="options-components">

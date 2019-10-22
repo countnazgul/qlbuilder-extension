@@ -21,6 +21,9 @@ Vue.component('data-preview', {
         },
         currentTable() {
             return store.getters.currentTable
+        },
+        loadScript() {
+            return store.getters.loadScript
         }
     },
     created: function () {
@@ -38,6 +41,7 @@ Vue.component('data-preview', {
         </div>
     </div>
     <div class="data-preview-table-container">
+        <div class="data-preview-table1">
         <table class="data-preview-table">
             <thead>
                 <th v-for="head in tableData.header" :key="head">{{head}}</th>
@@ -48,6 +52,14 @@ Vue.component('data-preview', {
                 </tr>
             <tbody>
         </table>
+        </div>
+        <div class="loadScript-container">
+            <div class="loadScript-header">
+                <button class="lui-button lui-button--gradient load-button" title="Copy to clipboard">Copy</button>
+                <button class="lui-button lui-button--gradient load-button" title="Insert into the currently open file">Insert</button>
+            </div>
+            <div class="loadScript">{{loadScript}}</div>
+        </div>
     </div>
 </div>`,
 })

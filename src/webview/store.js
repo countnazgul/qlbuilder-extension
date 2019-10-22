@@ -23,7 +23,8 @@ const store = new Vuex.Store({
         },
         fileType: {},
         fileTables: [],
-        currentTable: ''
+        currentTable: '',
+        loadScript: '111111'
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -56,6 +57,7 @@ const store = new Vuex.Store({
         SET_DATAPREVIEW: function (state, data) {
             state.dataPreview = data.tableData
             state.fileType = data.fileType
+            state.loadScript = data.loadScript
 
             if (data.fileTables.length > 0) {
                 state.fileTables = data.fileTables
@@ -144,6 +146,7 @@ const store = new Vuex.Store({
                 command: 'getDataPreview',
                 data: {
                     connectionId: state.current.dataConnection.qId,
+                    connection: state.current.dataConnection,
                     path: path
                 }
             })
@@ -163,7 +166,7 @@ const store = new Vuex.Store({
             //     currentTable = data.fileTables[0].qName
             // }
 
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: [], currentTable: '' })
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: [], currentTable: '', loadScript: data.loadScript })
         },
         setDataPreviewExcel: function ({ commit, state }, data) {
             let rowsData = [...data.dataPreview.qPreview]
@@ -227,6 +230,9 @@ const store = new Vuex.Store({
         }
     },
     getters: {
+        loadScript: function (state) {
+            return state.loadScript
+        },
         connections: function (state) {
             // return state.dataConnections.filter(function (d) {
             //     return d.description == 'folder'
@@ -249,7 +255,7 @@ const store = new Vuex.Store({
         currentFile: function (state) {
             return state.current.file
         },
-        currentDataConnection: function(state) {
+        currentDataConnection: function (state) {
             return state.current.dataConnection
         },
         loaders: function (state) {

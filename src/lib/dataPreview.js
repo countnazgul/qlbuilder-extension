@@ -1,14 +1,18 @@
+const helpers = require('./helpers');
 // csv, txt, qvd, qvx
 const singleTable = async function ({ message, fileType, qDoc }) {
 
     let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, '')
+    let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, '')
+
+    let loadScript = helpers.createLoadScript(message.data, fileTableAndFields)
 
     return {
         command: 'sendDataPreviewSingleTable',
         data: {
             dataPreview: fileTablePreview,
             fileType: fileType,
-            loadScript: 'Here goes the script'
+            loadScript: loadScript
         }
     }
 }
@@ -26,7 +30,6 @@ const excel = async function ({ message, fileType, qDoc }) {
         currentTable = fileTables[0].qName
     }
 
-    // let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, '')
     let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, currentTable)
 
     return {

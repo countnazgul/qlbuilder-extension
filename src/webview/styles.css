@@ -152,7 +152,44 @@ table td {
 }
 
 .data-preview-table-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
   overflow: auto;
+  grid-gap: 10px;
+}
+
+.data-preview-table1 {
+  overflow: auto;
+}
+
+.loadScript-container {
+  display: grid;
+  grid-template-rows: 28px auto;
+  grid-template-columns: auto 150px;
+  overflow: auto;
+  min-height: 150px;
+  white-space: pre;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.load-button {
+  height: 20px !important;
+  font-size: 10px !important;
+  line-height: 20px !important;
+}
+
+.loadScript-header {
+  padding: 5px;
+  text-align: right;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.loadScript {
+  margin: 5px;
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 2;
 }
 
 .data-preview-table {
