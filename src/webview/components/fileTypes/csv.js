@@ -46,7 +46,8 @@ Vue.component('csv', {
             <div class="label">Field names</div>
             <select v-model="fileType.qLabel" @change="changeFieldName" class="lui-select lui-select--gradient">
                 <option value="embedded labels" selected>Embedded field name</option>
-                <option value="no field names">No field names</option>
+                <option value="no labels">No labels
+                </option>
             </select>
         </div>
         
@@ -55,7 +56,7 @@ Vue.component('csv', {
             <div>
                 <span class="lui-input-group">
                     <button @click="changeHeaderSizeMinus" class="lui-input-group__item lui-input-group__button lui-button"><span class="lui-button__icon">-</span></button>
-                    <input type="text" class="lui-input-group__item  lui-input-group__input  lui-input" aria-invalid="false" :value="fileType.qHeaderSize">
+                    <input type="text" class="lui-input-group__item  lui-input-group__input  lui-input text-center" aria-invalid="false" :value="fileType.qHeaderSize">
                     <button @click="changeHeaderSizePlus"class="lui-input-group__item lui-input-group__button lui-button "><span class="lui-button__icon ">+</span></button>
                 </span>
             </div>

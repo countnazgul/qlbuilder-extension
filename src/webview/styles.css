@@ -9,8 +9,8 @@ body {
 }
 
 .fl {
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: calc(100vh - 16px);
+  max-height: calc(100vh - 16px);
   overflow: hidden;
 }
 
@@ -24,7 +24,7 @@ body {
   top: 0;
   bottom: 0;
   justify-self: center;
-  max-height: 100vh;
+  max-height: calc(100vh - 16px);
 }
 
 .center {
@@ -33,10 +33,14 @@ body {
   justify-items: center;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .data-connections {
   display: grid;
-  grid-template-rows: 1fr 30px 98fr;
-  max-height: 100vh;
+  grid-template-rows: 1fr 45px 98fr;
+  max-height: calc(100vh - 16px);
 }
 
 .dc {
@@ -47,7 +51,7 @@ body {
 
 .dc-control {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 20px 1fr 200px;
   grid-template-rows: 1fr;
   align-items: center
 }
@@ -58,13 +62,13 @@ body {
 
 .files {
   display: grid;
-  grid-template-rows: 1fr 1fr 98fr;
-  max-height: 100vh;
+  grid-template-rows: 1fr 45px 98fr;
+  max-height: calc(100vh - 16px);
 }
 
 .f-ops {
   display: grid;
-  grid-template-columns: 30px 10fr 250px;
+  grid-template-columns: 30px 30px 1fr 200px;
   align-items: center;
 }
 
@@ -86,6 +90,8 @@ body {
 .main {
   max-height: calc(100vh - 16px);
   max-width: calc(100vw - 16px);
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .main-loader {
@@ -181,6 +187,27 @@ table td {
   color: var(--vscode-editor-foreground) !important;
   min-height: 25px !important;
   height: 25px !important;
+  border-bottom: 1px solid rgba(221, 221, 221, 0) !important;
+}
+
+.lui-input {
+  border-radius: 0px !important;
+}
+
+.lui-search {
+  height: 25px !important;
+}
+
+.lui-search__input {
+  height: 25px !important;
+}
+
+.path {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .lds-ellipsis {
