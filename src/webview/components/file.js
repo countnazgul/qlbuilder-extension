@@ -20,9 +20,9 @@ Vue.component('file', {
         this.type = this.file.qType.toLowerCase()
     },
     template: `
-    <div class="file">
-      <div><span class="lui-icon" :class="typeClass" aria-hidden="true"></span></div>
-      <div :title="file.qName" class="link" @click="fileClick">{{file.qName}}</div>
-    </div>
+    <li class="lui-list__item">
+        <span class="lui-list__aside lui-icon" :class="typeClass" aria-hidden="true"></span>
+        <span :title="file.qName" @click="fileClick" class="lui-list__text link">{{file.qName}}</span>
+    </li>        
     `,
 })

@@ -108,6 +108,15 @@ const store = new Vuex.Store({
                 }
             })
         },
+        refreshFolderContent: function ({ commit, state }) {
+            state.vscode.postMessage({
+                command: 'getFiles',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    path: state.current.folderLevel.join('\\')
+                }
+            })
+        },
         goBack: function ({ commit, state }) {
             commit('SET_CURRENT_LEVEL_BACK')
 
@@ -124,11 +133,18 @@ const store = new Vuex.Store({
             commit('SET_LOADER', { loader: 'files', value: true })
         },
         getDataPreview: function ({ commit, state }, data) {
+
+            let path = data
+
+            if (state.current.folderLevel.length > 0) {
+                path = state.current.folderLevel.join('/') + '/' + data
+            }
+
             state.vscode.postMessage({
                 command: 'getDataPreview',
                 data: {
                     connectionId: state.current.dataConnection.qId,
-                    path: state.current.folderLevel.join('\\') + '' + data
+                    path: path
                 }
             })
             commit('SET_CURRENT_FILE', data)
@@ -173,11 +189,17 @@ const store = new Vuex.Store({
             let options = state.fileType
             options[data.prop] = data.value
 
+            let path = state.current.file
+
+            if (state.current.folderLevel.length > 0) {
+                path = state.current.folderLevel.join('/') + '/' + state.current.file
+            }
+
             state.vscode.postMessage({
                 command: 'getDataPreview',
                 data: {
                     connectionId: state.current.dataConnection.qId,
-                    path: state.current.folderLevel.join('\\') + '' + state.current.file,
+                    path: path,
                     options: options
                 }
             })
@@ -185,11 +207,17 @@ const store = new Vuex.Store({
         },
         changeTable: function ({ state, commit }, data) {
 
+            let path = state.current.file
+
+            if (state.current.folderLevel.length > 0) {
+                path = state.current.folderLevel.join('/') + '/' + state.current.file
+            }
+
             state.vscode.postMessage({
                 command: 'getDataPreview',
                 data: {
                     connectionId: state.current.dataConnection.qId,
-                    path: state.current.folderLevel.join('\\') + '' + state.current.file,
+                    path: path,
                     options: state.fileType,
                     currentTable: data
                 }
@@ -220,6 +248,9 @@ const store = new Vuex.Store({
         },
         currentFile: function (state) {
             return state.current.file
+        },
+        currentDataConnection: function(state) {
+            return state.current.dataConnection
         },
         loaders: function (state) {
             return state.loaders

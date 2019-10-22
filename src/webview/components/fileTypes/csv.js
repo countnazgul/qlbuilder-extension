@@ -24,14 +24,15 @@ Vue.component('csv', {
     },
     computed: {
         fileTypeClass() {
-            if(this.fileType.combinedType == 'single') return 'csv-options'
+            if(this.fileType.combinedType == 'single' && this.fileType.qType == 'CSV') return 'csv-options'
+            // if(this.fileType.combinedType == 'single' && this.fileType.qType != 'CSV') return 'qvd-options'
             if(this.fileType.combinedType == 'excel') return 'excel-options'
         }
     },
     created: function () {
 
     },
-    template: `<div>
+    template: `<div">
         <div :class="fileTypeClass">
         
         <div v-if="fileTables && fileTables.length > 0" class="options-components">
@@ -45,7 +46,8 @@ Vue.component('csv', {
             <div class="label">Field names</div>
             <select v-model="fileType.qLabel" @change="changeFieldName" class="lui-select lui-select--gradient">
                 <option value="embedded labels" selected>Embedded field name</option>
-                <option value="no field names">No field names</option>
+                <option value="no labels">No labels
+                </option>
             </select>
         </div>
         
@@ -54,13 +56,13 @@ Vue.component('csv', {
             <div>
                 <span class="lui-input-group">
                     <button @click="changeHeaderSizeMinus" class="lui-input-group__item lui-input-group__button lui-button"><span class="lui-button__icon">-</span></button>
-                    <input type="text" class="lui-input-group__item  lui-input-group__input  lui-input" aria-invalid="false" :value="fileType.qHeaderSize">
+                    <input type="text" class="lui-input-group__item  lui-input-group__input  lui-input text-center" aria-invalid="false" :value="fileType.qHeaderSize">
                     <button @click="changeHeaderSizePlus"class="lui-input-group__item lui-input-group__button lui-button "><span class="lui-button__icon ">+</span></button>
                 </span>
             </div>
         </div>
         
-        <div v-if="fileType.qType =='CSV'" class="options-components">
+        <div v-if="fileType.combinedType =='single'" class="options-components">
             <div class="label">Quoting</div>
                 <select v-model="fileType.qQuote" @change="changeQuoting" class="lui-select lui-select--gradient">
                     <option value="standard">Standard</option>
