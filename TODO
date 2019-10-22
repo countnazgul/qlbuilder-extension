@@ -1,6 +1,7 @@
 General:
     ☐ change the `message.text` to `message.data` where  needed @low     
     ☐ Authentication and integation with qlbuilder files! @high 
+    ☐ Handle connection errors
 
 UI:
     ☐ connections and files/folders list - use leonardo list @high 

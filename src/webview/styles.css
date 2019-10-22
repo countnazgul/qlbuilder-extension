@@ -177,6 +177,12 @@ table td {
   font-size: 12px
 }
 
+.lui-list .lui-list__item {
+  color: var(--vscode-editor-foreground) !important;
+  min-height: 25px !important;
+  height: 25px !important;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;

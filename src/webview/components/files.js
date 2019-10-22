@@ -21,7 +21,9 @@ Vue.component('files-list', {
         <div><input class="lui-input lui-disabled" placeholder="Not working yet" /></div>
     </div>
     <div class="f-list">
-      <file v-for="file in files" :key="file.qName" :file="file" ></file>
+        <ul class="lui-list">
+            <file v-for="file in files" :key="file.qName" :file="file" ></file>
+        </ui>
     </div>
     </div>`,
 })
