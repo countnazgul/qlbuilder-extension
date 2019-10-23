@@ -229,6 +229,14 @@ const store = new Vuex.Store({
             })
 
             commit('CHANGE_TABLE', data)
+        },
+        copyToClipboard: function ({ state }) {
+            state.vscode.postMessage({
+                command: 'copyToClipboard',
+                data: {
+                    loadScript: state.loadScript,
+                }
+            })
         }
     },
     getters: {

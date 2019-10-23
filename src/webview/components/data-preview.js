@@ -4,6 +4,9 @@ Vue.component('data-preview', {
     methods: {
         goBack: function () {
             store.dispatch('setDataPreviewVisible', false);
+        },
+        copyToClipboard: function() {
+            store.dispatch('copyToClipboard', false);
         }
     },
     computed: {
@@ -55,8 +58,8 @@ Vue.component('data-preview', {
         </div>
         <div class="loadScript-container">
             <div class="loadScript-header">
-                <button class="lui-button lui-button--gradient load-button" title="Copy to clipboard">Copy</button>
-                <button class="lui-button lui-button--gradient load-button" title="Insert into the currently open file">Insert</button>
+                <button @click="copyToClipboard" class="lui-button lui-button--gradient load-button" title="Copy to clipboard">Copy</button>
+                <!--<button class="lui-button lui-button--gradient load-button" title="Insert into the currently open file">Insert</button>-->
             </div>
             <div class="loadScript">{{loadScript}}</div>
         </div>
