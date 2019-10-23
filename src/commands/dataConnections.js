@@ -56,7 +56,7 @@ const dataConnections = function (context) {
 
         panel.webview.onDidReceiveMessage(async function (message) {
             // let result = await processMessage(message)
-            let result = await processMessage[message.command]({ qDoc, message, vscode })
+            let result = await processMessage[message.command]({ qDoc: qDoc.message, message, vscode })
             panel.webview.postMessage(result)
         })
 

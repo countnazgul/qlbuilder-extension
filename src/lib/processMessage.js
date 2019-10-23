@@ -41,6 +41,11 @@ const process = {
             return await dataPreview.excel({ message, fileType, qDoc })
         }
 
+        if (helpers.defineFileType(fileType.qType) == 'xml') {
+            fileType.combinedType = 'xml'
+            return await dataPreview.xml({ message, fileType, qDoc })
+        }
+
     },
     copyToClipboard: async function ({ qDoc, message, vscode }) {
         await vscode.env.clipboard.writeText(message.data.loadScript)

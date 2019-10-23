@@ -4,7 +4,6 @@ General:
 
 Data Preview:
     ☐ Specific layout for each of the recognised formats:
-        ☐ XML for XML @medium @multi-table 
         ☐ JSON for JSON format @medium @multi-table 
         ☐ KML for KML file @low @multi-table 
         ☐ FIX for Fixed Record @low @single-table 
@@ -13,6 +12,7 @@ Data Preview:
     ☐ insert the generated load script into the current file (optional. if possible at all) @low
 
 Archive:
+  ✔ XML for XML @medium @multi-table @done(19-10-23 18:27) @project(Data Preview)
   ✔ Handle connection errors @done(19-10-23 13:49) @project(General)
   ✔ change the `message.text` to `messagde.data` where  needed @low @done(19-10-23 07:16) @project(General)
   ✔ load script to be generated to excel files @done(19-10-23 05:59) @project(Data Preview)
