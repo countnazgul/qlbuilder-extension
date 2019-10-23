@@ -183,7 +183,7 @@ const store = new Vuex.Store({
                 currentTable = data.fileTables[0].qName
             }
 
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables, currentTable: currentTable })
+            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables, currentTable: currentTable, loadScript: data.loadScript })
         },
         setDataPreviewVisible: function ({ commit }, data) {
             commit('SET_DATAPREVIEW_VISIBLE', data)
@@ -202,6 +202,7 @@ const store = new Vuex.Store({
                 command: 'getDataPreview',
                 data: {
                     connectionId: state.current.dataConnection.qId,
+                    connection: state.current.dataConnection,
                     path: path,
                     options: options
                 }
@@ -220,6 +221,7 @@ const store = new Vuex.Store({
                 command: 'getDataPreview',
                 data: {
                     connectionId: state.current.dataConnection.qId,
+                    connection: state.current.dataConnection,
                     path: path,
                     options: state.fileType,
                     currentTable: data

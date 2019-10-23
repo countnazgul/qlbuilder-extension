@@ -31,14 +31,16 @@ const excel = async function ({ message, fileType, qDoc }) {
     }
 
     let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, currentTable)
-
+    let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, currentTable)
+    let loadScript = helpers.createLoadScript(message.data, fileTableAndFields)
     return {
         command: 'sendDataPreviewExcel',
         data: {
             dataPreview: fileTablePreview,
             fileType: fileType,
             fileTables: fileTables,
-            currentTable: currentTable
+            currentTable: currentTable,
+            loadScript: loadScript
         }
     }
 }
