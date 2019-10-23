@@ -3,7 +3,7 @@ const dataPreview = require('./dataPreview');
 const helpers = require('./helpers');
 
 const process = {
-    getConnections: async function (qDoc, message) {
+    getConnections: async function ({ qDoc, message }) {
         let connections = await qlikComm.getDataConnections(qDoc)
 
         return {
@@ -11,7 +11,7 @@ const process = {
             text: connections
         }
     },
-    getFiles: async function (qDoc, message) {
+    getFiles: async function ({ qDoc, message }) {
         let filesList = await qlikComm.getFilesList(qDoc, message.data.connectionId, message.data.path)
         // let dcProperties = await getDataConnectionProps(qDoc, message.connectionId)
 
@@ -21,7 +21,7 @@ const process = {
             text: filesList
         }
     },
-    getDataPreview: async function (qDoc, message) {
+    getDataPreview: async function ({ qDoc, message }) {
         let fileType = {}
 
         if (message.data.options) {
@@ -41,7 +41,12 @@ const process = {
             return await dataPreview.excel({ message, fileType, qDoc })
         }
 
+    },
+    copyToClipboard: async function ({ qDoc, message, vscode }) {
+        await vscode.env.clipboard.writeText(message.data.loadScript)
+        return true
     }
 }
 
 module.exports = process
+

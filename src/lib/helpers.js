@@ -23,13 +23,19 @@ const getNonce = function () {
     return text;
 }
 
-const createLoadScript = function (message) {
+const createLoadScript = function (connection, fileTableFields) {
     let loadScript = ['Load']
 
-    let fields = message.qPreview[0].join(',\n')
+    let fields = []
+    for (let field of fileTableFields.qFields) {
+        fields.push(`\t"${field.qName}"`)
+    }
 
-    loadScript.push(fields)
-    loadScript.push('From')
+    loadScript.push(fields.join(`,\n`))
+    loadScript.push(`FROM [lib://${connection.connection.label}/${connection.path}]`)
+
+    loadScript.push(`${fileTableFields.qFormatSpec};`)
+
     return loadScript.join('\n')
 }
 
