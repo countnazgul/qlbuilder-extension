@@ -1,21 +1,21 @@
 General:
-    ☐ change the `message.text` to `message.data` where  needed @low     
+    ☐ change the `message.text` to `message.data` where  needed @low
     ☐ Authentication and integration with qlbuilder files! @high 
     ☐ Handle connection errors
 
 Data Preview:
-    ☐ load script to be generated to excel files
-    ☐ insert the generated load script into the current file (optional) @high 
-    ☐ copy the generated load script to the cliboard @high 
     ☐ Specific layout for each of the recognised formats:
         ☐ XML for XML @medium @multi-table 
         ☐ JSON for JSON format @medium @multi-table 
         ☐ KML for KML file @low @multi-table 
         ☐ FIX for Fixed Record @low @single-table 
-        ☐ DIF for Data Interchange Format @low @single-table         
+        ☐ DIF for Data Interchange Format @low @single-table
         ☐ HTML for HTML @low @multi-table         
+    ☐ insert the generated load script into the current file (optional. if possible at all) @low
 
 Archive:
+  ✔ load script to be generated to excel files @done(19-10-23 05:59) @project(Data Preview)
+  ✔ copy the generated load script to the cliboard @high @done(19-10-23 05:59) @project(Data Preview)
   ✔ connections and files/folders list - use leonardo list @high @done(19-10-22 18:12) @project(UI)
   ✔ Files section - add refresh button @medium @done(19-10-22 18:12) @project(UI)
   ✔ change the layout of the current folder text (should not be on more than one row?) @low @done(19-10-22 18:12) @project(UI)
