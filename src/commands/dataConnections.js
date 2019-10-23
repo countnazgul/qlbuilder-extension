@@ -44,13 +44,19 @@ const dataConnections = function (context) {
 
         let qDoc = await qlikComm.getQlikDoc(environmentChecks.message)
 
+        if (qDoc.error) {
+            vscode.window.showErrorMessage(qDoc.message)
+            panel.dispose()
+            return false
+        }
+
         panel.postMessage({
             command: 'docOpen'
         })
 
         panel.webview.onDidReceiveMessage(async function (message) {
             // let result = await processMessage(message)
-            let result = await processMessage[message.command]({qDoc, message, vscode})
+            let result = await processMessage[message.command]({ qDoc, message, vscode })
             panel.webview.postMessage(result)
         })
 

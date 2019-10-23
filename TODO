@@ -1,7 +1,6 @@
 General:
-    ☐ change the `message.text` to `message.data` where  needed @low
     ☐ Authentication and integration with qlbuilder files! @high 
-    ☐ Handle connection errors
+    ☐ Error handling
 
 Data Preview:
     ☐ Specific layout for each of the recognised formats:
@@ -14,6 +13,8 @@ Data Preview:
     ☐ insert the generated load script into the current file (optional. if possible at all) @low
 
 Archive:
+  ✔ Handle connection errors @done(19-10-23 13:49) @project(General)
+  ✔ change the `message.text` to `messagde.data` where  needed @low @done(19-10-23 07:16) @project(General)
   ✔ load script to be generated to excel files @done(19-10-23 05:59) @project(Data Preview)
   ✔ copy the generated load script to the cliboard @high @done(19-10-23 05:59) @project(Data Preview)
   ✔ connections and files/folders list - use leonardo list @high @done(19-10-22 18:12) @project(UI)

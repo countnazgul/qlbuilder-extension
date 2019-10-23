@@ -42,10 +42,10 @@ Vue.component('user-name', {
                     self.getConnections()
                     break;
                 case 'sendConnections':
-                    store.dispatch('setConnections', message.text)
+                    store.dispatch('setConnections', message.data)
                     break;
                 case 'sendFiles':
-                    store.dispatch('setFiles', message.text)
+                    store.dispatch('setFiles', message.data)
                     break;
                 case 'sendDataPreviewSingleTable':
                     store.dispatch('setDataPreviewSingleTable', message.data)

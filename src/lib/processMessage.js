@@ -8,7 +8,7 @@ const process = {
 
         return {
             command: 'sendConnections',
-            text: connections
+            data: connections
         }
     },
     getFiles: async function ({ qDoc, message }) {
@@ -18,7 +18,7 @@ const process = {
         return {
             command: 'sendFiles',
             connectionId: message.connectionId,
-            text: filesList
+            data: filesList
         }
     },
     getDataPreview: async function ({ qDoc, message }) {

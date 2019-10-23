@@ -11,7 +11,7 @@ const getQlikDoc = async function (config) {
 
     if (config.core.secure) {
         wsUri = `wss://${config.core.host}`
-    }    
+    }
 
     wsUri += `/app/engineData/identity/${+new Date()}`
 
@@ -21,12 +21,16 @@ const getQlikDoc = async function (config) {
         createSocket: url => new WebSocket(url),
     });
 
-    let global = await session.open()
-    // let docs = await global.getDocList()
+    try {
+        let global = await session.open()
+        // let docs = await global.getDocList()
 
-    let doc = await global.openDoc(config.core.appId)
+        let doc = await global.openDoc(config.core.appId)
 
-    return doc
+        return { error: false, message: doc }
+    } catch (e) {
+        return { error: true, message: e.message }
+    }
 }
 
 const getDataConnectionProps = async function (qDoc, connectionId) {
