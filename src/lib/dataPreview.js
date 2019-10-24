@@ -33,6 +33,7 @@ const excel = async function ({ message, fileType, qDoc }) {
     let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, currentTable)
     let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, currentTable)
     let loadScript = helpers.createLoadScript(message.data, fileTableAndFields)
+
     return {
         command: 'sendDataPreviewExcel',
         data: {
@@ -45,7 +46,36 @@ const excel = async function ({ message, fileType, qDoc }) {
     }
 }
 
-// xml, json, kml
+const xml = async function ({ message, fileType, qDoc }) {
+    let currentTable = ''
+    let fileTables = []
+
+    
+    if (message.data.currentTable) {
+        currentTable = message.data.currentTable
+        // fileTablePreview = message.data.fileTables
+    } else {
+        fileTables = await qDoc.getFileTablesEx(message.data.connectionId, message.data.path, { qType: fileType.qType })
+        currentTable = fileTables[0].qName
+    }
+
+    let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, currentTable)
+    let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, currentTable)
+    let loadScript = helpers.createLoadScript(message.data, fileTableAndFields)
+
+    return {
+        command: 'sendDataPreviewExcel',
+        data: {
+            dataPreview: fileTablePreview,
+            fileType: fileType,
+            fileTables: fileTables,
+            currentTable: currentTable,
+            loadScript: loadScript
+        }
+    }
+}
+
+//json, kml
 const webFiles = async function () {
 
 }
@@ -54,5 +84,6 @@ const webFiles = async function () {
 module.exports = {
     singleTable,
     excel,
+    xml,
     webFiles
 }

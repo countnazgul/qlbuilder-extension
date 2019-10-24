@@ -24,6 +24,7 @@ Vue.component('csv', {
         fileTypeClass() {
             if (this.fileType.combinedType == 'single' && this.fileType.qType == 'CSV') return 'csv-options'
             if (this.fileType.combinedType == 'excel') return 'excel-options'
+            if (this.fileType.combinedType == 'xml') return 'excel-options'
         }       
     },
     created: function () {
@@ -39,7 +40,7 @@ Vue.component('csv', {
                 </select>
         </div>
 
-        <div class="options-components">
+        <div v-if="fileType.combinedType != 'xml'" class="options-components">
             <div class="label">Field names</div>
             <select v-model="fileType.qLabel" @change="changeFieldName" class="lui-select lui-select--gradient">
                 <option value="embedded labels" selected>Embedded field name</option>
@@ -48,7 +49,7 @@ Vue.component('csv', {
             </select>
         </div>
         
-        <div class="options-components">
+        <div v-if="fileType.combinedType != 'xml'" class="options-components">
             <div class="label">Header size</div>
             <div>
                 <span class="lui-input-group">

@@ -40,7 +40,7 @@ Vue.component('data-preview', {
         </div>        
         <div>
         <csv v-if="fileType.combinedType =='single' && fileType.qType !='QVD'" :fileType="fileType" :tableData="tableData"></csv>
-        <csv v-if="fileType.combinedType =='excel'" :fileType="fileType" :tableData="tableData" :fileTables="fileTables" :currentTable="currentTable"></csv>
+        <csv v-if="fileType.combinedType =='excel' || fileType.combinedType =='xml'" :fileType="fileType" :tableData="tableData" :fileTables="fileTables" :currentTable="currentTable"></csv>
         </div>
     </div>
     <div class="data-preview-table-container">

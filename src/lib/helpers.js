@@ -178,10 +178,12 @@ const environmentChecks = {
 const defineFileType = function (qType) {
     let singleTableFiles = ['CSV', 'QVD', 'QVX']
     let excelFiles = ['EXCEL_BIFF', 'EXCEL_OOXML']
-    let webFiles = ['XML', 'KML', 'JSON', 'HTML']
+    let xml = ['XML', 'KML']
+    let webFiles = ['JSON', 'HTML']
 
     if (singleTableFiles.indexOf(qType) > -1) return 'single'
     if (excelFiles.indexOf(qType) > -1) return 'excel'
+    if (xml.indexOf(qType) > -1) return 'xml'
     if (webFiles.indexOf(qType) > -1) return 'web'
 
     return 'undefined'
