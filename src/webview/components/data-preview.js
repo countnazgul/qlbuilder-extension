@@ -5,7 +5,7 @@ Vue.component('data-preview', {
         goBack: function () {
             store.dispatch('setDataPreviewVisible', false);
         },
-        copyToClipboard: function() {
+        copyToClipboard: function () {
             store.dispatch('copyToClipboard', false);
         }
     },
@@ -35,34 +35,45 @@ Vue.component('data-preview', {
     template: `<div class="data-preview">
     <div class="data-preview-header">
         <div class="data-preview-ops">
-            <span @click="goBack" class="lui-icon  lui-icon--back link" aria-hidden="true" title="Back to data connections"></span>            
+            <span @click="goBack" class="lui-icon  lui-icon--back link" aria-hidden="true"
+                title="Back to data connections"></span>
             <div>{{currentFile}}</div>
-        </div>        
+        </div>
         <div>
-        <csv v-if="fileType.combinedType =='single' && fileType.qType !='QVD'" :fileType="fileType" :tableData="tableData"></csv>
-        <csv v-if="fileType.combinedType =='excel' || fileType.combinedType =='xml'" :fileType="fileType" :tableData="tableData" :fileTables="fileTables" :currentTable="currentTable"></csv>
+            <csv v-if="fileType.combinedType =='single' && fileType.qType !='QVD'" :fileType="fileType"
+                :tableData="tableData"></csv>
+            <csv v-if="fileType.combinedType =='excel' || fileType.combinedType =='xml'" :fileType="fileType"
+                :tableData="tableData" :fileTables="fileTables" :currentTable="currentTable"></csv>
         </div>
     </div>
-    <div class="data-preview-table-container">
+    <!-- <div class="data-preview-table-container"> -->
         <div class="data-preview-table1">
-        <table class="data-preview-table">
-            <thead>
-                <th v-for="head in tableData.header" :key="head">{{head}}</th>
-            </thead>
-            <tbody>
-                <tr v-for="row in tableData.rows">
-                    <td v-for="cell in row.qValues" :title="cell">{{cell}}</td>
-                </tr>
-            <tbody>
-        </table>
-        </div>
-        <div class="loadScript-container">
-            <div class="loadScript-header">
-                <button @click="copyToClipboard" class="lui-button lui-button--gradient load-button" title="Copy to clipboard">Copy</button>
-                <!--<button class="lui-button lui-button--gradient load-button" title="Insert into the currently open file">Insert</button>-->
+            <div class="fields-list">
+                <ul class="lui-list">
+                <tableButton v-for="tableData in fileTables" :tableData="tableData"></tableButton>
+                </ul>
             </div>
-            <div class="loadScript">{{loadScript}}</div>
+            <div class="table-container">
+                <table class="data-preview-table">
+                    <thead>
+                        <th v-for="head in tableData.header" :key="head">{{head}}</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="row in tableData.rows">
+                            <td v-for="cell in row.qValues" :title="cell">{{cell}}</td>
+                        </tr>
+                    <tbody>
+                </table>
+            </div>
+            <div class="loadScript-container">
+                <div class="loadScript-header">
+                    <button @click="copyToClipboard" class="lui-button lui-button--gradient load-button"
+                        title="Copy to clipboard">Copy</button>
+                    <!--<button class="lui-button lui-button--gradient load-button" title="Insert into the currently open file">Insert</button>-->
+                </div>
+                <div class="loadScript">{{loadScript}}</div>
+            </div>
         </div>
-    </div>
+    <!-- </div> -->
 </div>`,
 })

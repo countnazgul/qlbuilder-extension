@@ -20,17 +20,17 @@ const webResources = [
         name: 'app_uri',
         folder: 'src/webview',
         file: 'app.js'
-    },    
+    },
     {
         name: 'dcs_uri',
         folder: 'src/webview/components',
         file: 'data-connections.js'
-    }, 
+    },
     {
         name: 'dc_uri',
         folder: 'src/webview/components',
         file: 'data-connection.js'
-    },     
+    },
     {
         name: 'fls_uri',
         folder: 'src/webview/components',
@@ -55,7 +55,17 @@ const webResources = [
         name: 'dp_csv_uri',
         folder: 'src/webview/components/fileTypes',
         file: 'csv.js'
-    },     
+    },
+    {
+        name: 'dp_header_uri',
+        folder: 'src/webview/components/fileTypes',
+        file: 'data-preview-header.js'
+    },
+    {
+        name: 'table_uri',
+        folder: 'src/webview/components/fileTypes',
+        file: 'table.js'
+    },
     {
         name: 'styles_uri',
         folder: 'src/webview',
@@ -80,7 +90,7 @@ const webResources = [
         name: 'store_uri',
         folder: 'src/webview',
         file: 'store.js'
-    },            
+    },
     {
         name: 'leonardo_js',
         folder: 'src/resources/js',
