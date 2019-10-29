@@ -25,7 +25,7 @@ Vue.component('data-connection', {
                 }
 
                 self.backgroundColor = {
-                    'background-color': 'gray'
+                    'background-color': 'grey'
                 }
             } else {
                 self.bold = { 'font-weight': 'normal' }

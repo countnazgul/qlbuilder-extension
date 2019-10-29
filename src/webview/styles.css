@@ -15,12 +15,12 @@ body {
 }
 
 .border-bottom {
-  border-bottom: 2px solid darkgray;
+  border-bottom: 2px solid darkgrey;
 }
 
 .separate {
   width: 2px;
-  background-color: darkgray;
+  background-color: darkgrey;
   top: 0;
   bottom: 0;
   justify-self: center;
@@ -236,7 +236,14 @@ table td {
 
 .table-item {
   display: grid;
-  grid-template-columns: 30px auto;
+  grid-template-columns: 35px auto;
+  height: 36px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.table-selected {
+  background-color: grey;
 }
 
 .label {
@@ -260,6 +267,12 @@ table td {
 
 .lui-search__input {
   height: 25px !important;
+}
+
+.lui-checkbox {
+  height: 25px;
+  align-self: center;
+  justify-self: center;
 }
 
 .path {
