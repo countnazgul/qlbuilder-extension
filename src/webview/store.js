@@ -185,6 +185,9 @@ const store = new Vuex.Store({
 
             commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables, currentTable: currentTable, loadScript: data.loadScript })
         },
+        setDataPreviewAdditional: function({commit, state}, data) {
+
+        },
         setDataPreviewVisible: function ({ commit }, data) {
             commit('SET_DATAPREVIEW_VISIBLE', data)
         },

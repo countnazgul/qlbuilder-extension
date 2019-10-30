@@ -21,6 +21,10 @@ const process = {
             data: filesList
         }
     },
+    getAdditionalTable: async function({ qDoc, message }) {
+        // fileType.combinedType = 'single'
+        return await dataPreview.singleTable({ message, fileType, qDoc })
+    },
     getDataPreview: async function ({ qDoc, message }) {
         let fileType = {}
 
