@@ -134,6 +134,23 @@ const store = new Vuex.Store({
             commit('SET_FILES', data)
             commit('SET_LOADER', { loader: 'files', value: true })
         },
+        getLoadScript: function({commit, state}, data) {
+            let path = data
+
+            if (state.current.folderLevel.length > 0) {
+                path = state.current.folderLevel.join('/') + '/' + data
+            }
+
+            state.vscode.postMessage({
+                command: 'getLoadScript',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    connection: state.current.dataConnection,
+                    path: path
+                }
+            })            
+
+        },
         getDataPreview: function ({ commit, state }, data) {
 
             let path = data
@@ -166,7 +183,13 @@ const store = new Vuex.Store({
             //     currentTable = data.fileTables[0].qName
             // }
 
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: [], currentTable: '', loadScript: data.loadScript })
+            commit('SET_DATAPREVIEW', { 
+                tableData: tableData, 
+                fileType: data.fileType, 
+                fileTables: [], 
+                currentTable: '', 
+                loadScript: data.loadScript 
+            })
         },
         setDataPreviewExcel: function ({ commit, state }, data) {
             let rowsData = [...data.dataPreview.qPreview]
@@ -183,7 +206,13 @@ const store = new Vuex.Store({
                 currentTable = data.fileTables[0].qName
             }
 
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables, currentTable: currentTable, loadScript: data.loadScript })
+            commit('SET_DATAPREVIEW', { 
+                tableData: tableData, 
+                fileType: data.fileType, 
+                fileTables: data.fileTables, 
+                currentTable: currentTable, 
+                loadScript: data.loadScript
+            })
         },
         setDataPreviewAdditional: function({commit, state}, data) {
 

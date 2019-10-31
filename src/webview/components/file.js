@@ -10,8 +10,9 @@ Vue.component('file', {
                 store.dispatch('getFolderContent', this.file.qName);
             }
 
-            if (this.type == 'file') {
-                store.dispatch('getDataPreview', this.file.qName);
+            if (this.type == 'file') {                
+                store.dispatch('getLoadScript', this.file.qName);
+                // store.dispatch('getDataPreview', this.file.qName);
             }            
         }
     },
