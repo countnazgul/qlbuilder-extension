@@ -1,5 +1,5 @@
 Vue.component('tableButton', {
-    props: ['tableData', 'currentTable', 'activeScripts'],
+    props: ['tableData', 'currentTable', 'activeScripts', 'fileType'],
     data() {
         return {
             addScript: false
@@ -7,7 +7,9 @@ Vue.component('tableButton', {
     },
     methods: {
         tablePreview: function () {
-            store.dispatch('changeTable', this.tableData);
+            if(this.fileType.combinedType != 'single') {
+                store.dispatch('changeTable', this.tableData);
+            }
         },
         clicked: function(event) {
             let t = this.activeScript
@@ -35,6 +37,13 @@ Vue.component('tableButton', {
             } else {
                 return false
             }
+        },
+        disabledCheck: function() {
+            if(this.fileType.combinedType == 'single') {
+                return true
+            } else {
+                return false
+            }
         }
     },
     created: function () {
@@ -43,12 +52,12 @@ Vue.component('tableButton', {
     template: `
     <div class="table-item" :class="tableSelected">
     <label class="lui-checkbox">
-        <input v-model="addScript" v-model="activeScript" @change="clicked($event)" class="lui-checkbox__input" type="checkbox" aria-label="Label" />
+        <input v-model="addScript" v-model="activeScript" :disabled="disabledCheck" @change="clicked($event)" class="lui-checkbox__input" type="checkbox" aria-label="Label" />
         <div class="lui-checkbox__check-wrap">
             <span class="lui-checkbox__check"></span>
         </div>
     </label>
-    <span @click="tablePreview" class="lui-list__text link">{{tableData}}</span>
+    <span @click="tablePreview" class="lui-list__text" :class="{link: !disabledCheck}">{{tableData}}</span>
 </div>            
 `,
 })

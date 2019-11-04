@@ -85,7 +85,6 @@ const store = new Vuex.Store({
             state.currentTable = data.activeTable
             state.activeScripts = [data.scripts[0].tableName]
             state.loadScriptActive = data.scripts[0].script
-            console.log(state.loadScriptActive)
             state.loadScripts = data.scripts
             state.fileTables = data.scripts.map(function(f) {
                 return f.tableName

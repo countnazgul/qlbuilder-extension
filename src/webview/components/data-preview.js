@@ -52,9 +52,7 @@ Vue.component('data-preview', {
     <!-- <div class="data-preview-table-container"> -->
         <div class="data-preview-table1">
             <div class="fields-list">
-                <!--<ul class="lui-list">-->
-                <tableButton v-for="tableData in fileTables" :tableData="tableData" :currentTable="currentTable" :activeScripts="activeScripts"></tableButton>
-                <!--</ul>-->
+                <tableButton v-for="tableData in fileTables" :fileType="fileType"  :tableData="tableData" :currentTable="currentTable" :activeScripts="activeScripts"></tableButton>
             </div>
             <div class="table-container">
                 <table class="data-preview-table">
