@@ -57,7 +57,7 @@ Vue.component('data-preview', {
             <div class="table-container">
                 <table class="data-preview-table">
                     <thead>
-                        <th v-for="head in tableData.header" :key="head">{{head}}</th>
+                        <th v-for="head in tableData.header" :key="head" class="table-name" :title="head">{{head}}</th>
                     </thead>
                     <tbody>
                         <tr v-for="row in tableData.rows">

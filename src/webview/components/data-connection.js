@@ -53,7 +53,7 @@ Vue.component('data-connection', {
     template: `
     <li class="lui-list__item" :style="currentStyle">
         <span class="lui-list__aside lui-icon  lui-icon--folder" aria-hidden="true" :style=""></span>
-        <span @click="getFiles" class="lui-list__text link" :style="bold">{{dc.label}}</span>
+        <span @click="getFiles" class="lui-list__text link" :style="bold" >{{dc.label}}</span>
     </li>
     `,
 })
