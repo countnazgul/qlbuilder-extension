@@ -2,5 +2,14 @@
     "cSpell.ignoreWords": [
         "datapreview",
         "set"
+    ],
+    "cSpell.words": [
+        "OOXML",
+        "odbc",
+        "oledb",
+        "qlbuilder",
+        "qlik",
+        "stefanstoichev",
+        "vuex"
     ]
 }

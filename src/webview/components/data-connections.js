@@ -35,7 +35,7 @@ Vue.component('data-connections', {
       <div></div>
       <div class="lui-search">
           <span class="lui-icon  lui-icon--search  lui-search__search-icon"></span>
-          <input v-model="searchString" class="lui-search__input" maxength="100" spellcheck="false" type="text"
+          <input v-model="searchString" class="lui-search__input" maxLength="100" spellcheck="false" type="text"
               placeholder="Search" />
           <button @click="clearSearchString" class="lui-search__clear-button">
               <span class="lui-icon  lui-icon--small  lui-icon--close"></span>
