@@ -15,12 +15,12 @@ body {
 }
 
 .border-bottom {
-  border-bottom: 2px solid darkgray;
+  border-bottom: 2px solid darkgrey;
 }
 
 .separate {
   width: 2px;
-  background-color: darkgray;
+  background-color: darkgrey;
   top: 0;
   bottom: 0;
   justify-self: center;
@@ -161,14 +161,31 @@ table td {
 
 .data-preview-table1 {
   overflow: auto;
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: auto 150px;
+}
+
+.fields-list {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+
+.table-container {
+  grid-row: 1 / 1;
+  grid-column: 2 / 2;
+  overflow: auto;
 }
 
 .loadScript-container {
+  grid-row: 2 / 2;
+  grid-column: 1 / span 2;
   display: grid;
   grid-template-rows: 28px auto;
   grid-template-columns: auto 150px;
   overflow: auto;
-  min-height: 150px;
+  /* min-height: 150px; */
+  max-height: 150px;
   white-space: pre;
   border-top: 1px solid;
   border-bottom: 1px solid;
@@ -206,7 +223,7 @@ table td {
 
 .excel-options {
   display: grid;
-  grid-template-columns: 300px 200px 130px;
+  grid-template-columns: 200px 130px;
   grid-gap: 10px;
   margin-bottom: 5px;
 }
@@ -215,6 +232,18 @@ table td {
   display: grid;
   grid-template-rows: 12px 1fr;
   grid-gap: 5px;
+}
+
+.table-item {
+  display: grid;
+  grid-template-columns: 35px auto;
+  height: 36px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.table-selected {
+  background-color: grey;
 }
 
 .label {
@@ -238,6 +267,12 @@ table td {
 
 .lui-search__input {
   height: 25px !important;
+}
+
+.lui-checkbox {
+  height: 25px;
+  align-self: center;
+  justify-self: center;
 }
 
 .path {

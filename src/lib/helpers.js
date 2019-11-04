@@ -105,7 +105,7 @@ const configChecks = {
         if (!folder) return { error: true, message: 'Please, open project folder first' }
         if (folder.length > 1) return { error: true, message: 'Too many folders are open' }
 
-        let configPath = `${folder[0].uri.fsPath}\\config.yml`
+        let configPath = `${folder[0].uri.fsPath}/config.yml`
 
         if (!fs.existsSync(configPath)) return { error: true, message: 'config.yml is not present in the current folder' }
 
@@ -115,7 +115,7 @@ const configChecks = {
         return { error: false, message: configContent }
     },
     homeConfig: function () {
-        let qlConfigLocation = `${homeDir}\\.qlbuilder.yml`
+        let qlConfigLocation = `${homeDir}/.qlbuilder.yml`
 
         if (!fs.existsSync(qlConfigLocation)) return { error: true, message: `Unable to find .qlbuilder.yml in ${homeDir}` }
 

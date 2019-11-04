@@ -53,9 +53,17 @@ Vue.component('user-name', {
                 case 'sendDataPreviewExcel':
                     store.dispatch('setDataPreviewExcel', message.data)
                     break;
+                case 'sendDataPreviewAdditional':
+                    store.dispatch('setDataPreviewAdditional', message.data)
+                    break;
                 case 'sendDataPreview':
                     store.dispatch('setDataPreview', message.data)
                     break;
+                case 'sendLoadScripts':
+                    store.dispatch('setLoadScripts', message.data)
+                    break;
+                default:
+                    console.log('test')
             }
 
         });

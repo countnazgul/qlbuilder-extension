@@ -1,4 +1,4 @@
-Vue.component('csv', {
+Vue.component('data-preview-header', {
     props: ['fileType', 'tableData', 'fileTables', 'currentTable'],
     methods: {
         goBack: function () {

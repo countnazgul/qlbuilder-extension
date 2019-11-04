@@ -21,6 +21,10 @@ const process = {
             data: filesList
         }
     },
+    getAdditionalTable: async function({ qDoc, message }) {
+        // fileType.combinedType = 'single'
+        return await dataPreview.singleTable({ message, fileType, qDoc })
+    },
     getDataPreview: async function ({ qDoc, message }) {
         let fileType = {}
 
@@ -47,10 +51,52 @@ const process = {
         }
 
     },
+    getLoadScript: async function({ qDoc, message }) {
+        let fileType = await qDoc.guessFileType(message.data.connectionId, message.data.path)
+
+        let fileTables = await qDoc.getFileTables(message.data.connectionId, message.data.path, { qType: fileType.qType })
+        let fileTablesAndFields = await getAllTablesAndFields({qDoc, message, fileType, fileTables})
+        let allLoadScripts = buildCompleteScript(message.data, fileTablesAndFields)
+
+        return {
+            command: 'sendLoadScripts',
+            data: allLoadScripts
+        }
+
+        let a = 1
+    },
     copyToClipboard: async function ({ qDoc, message, vscode }) {
         await vscode.env.clipboard.writeText(message.data.loadScript)
         return true
     }
+}
+
+
+const getAllTablesAndFields = async function({qDoc, message, fileType, fileTables}) {
+
+    let tablesFields = await Promise.all(fileTables.map(async function(f) {
+        let fileTableAndFields = await qDoc.getFileTableFields(message.data.connectionId, message.data.path, fileType, f.qName)
+        return {
+            data: fileTableAndFields,
+            fileTable: f
+        }
+    }))
+
+    return tablesFields
+}
+
+const buildCompleteScript =  function(connection, tablesAndFields) {
+    let fullScript = tablesAndFields.map(function(f) {
+        let localScript = helpers.createLoadScript(connection, f.data)
+
+        return {
+            tableName: f.fileTable.qName,
+            // data: f.data,
+            script: localScript
+        }
+    })
+
+    return fullScript
 }
 
 module.exports = process

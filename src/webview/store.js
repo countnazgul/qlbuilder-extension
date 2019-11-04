@@ -24,7 +24,10 @@ const store = new Vuex.Store({
         fileType: {},
         fileTables: [],
         currentTable: '',
-        loadScript: '111111'
+        loadScript: '',
+        loadScriptActive: '',
+        loadScripts: [],
+        activeScripts: []
     },
     mutations: {
         SET_VSCODE: function (state, vscode) {
@@ -57,13 +60,13 @@ const store = new Vuex.Store({
         SET_DATAPREVIEW: function (state, data) {
             state.dataPreview = data.tableData
             state.fileType = data.fileType
-            state.loadScript = data.loadScript
+            // state.loadScript = data.loadScript
 
-            if (data.fileTables.length > 0) {
-                state.fileTables = data.fileTables
-            }
+            // if (data.fileTables.length > 0) {
+            //     state.fileTables = data.fileTables
+            // }
 
-            state.currentTable = data.currentTable
+            // state.currentTable = data.currentTable
             state.isDataPreview = true
         },
         SET_DATAPREVIEW_VISIBLE: function (state, data) {
@@ -77,6 +80,45 @@ const store = new Vuex.Store({
         },
         CHANGE_TABLE: function (state, data) {
             state.currentTable = data
+        },
+        SET_LOAD_SCRIPTS: function(state, data) {
+            state.currentTable = data.activeTable
+            state.activeScripts = [data.scripts[0].tableName]
+            state.loadScriptActive = data.scripts[0].script
+            state.loadScripts = data.scripts
+            state.fileTables = data.scripts.map(function(f) {
+                return f.tableName
+            })
+        },
+        UPDATE_LOAD_SCRIPT: function(state, data) {
+            // let currentState = state.loadScripts
+
+            let scriptObj = state.loadScripts.find((p) => {
+                return p.tableName === data.tableName;
+            });
+            
+            scriptObj.active = !data.state
+
+
+            let activeScripts = state.loadScripts.filter(function(s) {
+                return s.active == true
+            })
+            .map(function(s) {
+                return s.script
+            })
+            
+            state.loadScriptActive = activeScripts.join('\n\n\n')
+
+            // state.loadScripts = currentState
+        },
+        SET_ACTIVE_SCRIPTS: function(state, data) {
+            if(data.state == true) {
+                state.activeScripts.splice(state.activeScripts.indexOf(data.tableName), 1)
+            } else {
+                state.activeScripts.push(data.tableName)
+            }
+
+            let a = 1
         }
     },
     actions: {
@@ -134,6 +176,23 @@ const store = new Vuex.Store({
             commit('SET_FILES', data)
             commit('SET_LOADER', { loader: 'files', value: true })
         },
+        getLoadScript: function({commit, state}, data) {
+            let path = data
+
+            if (state.current.folderLevel.length > 0) {
+                path = state.current.folderLevel.join('/') + '/' + data
+            }
+
+            state.vscode.postMessage({
+                command: 'getLoadScript',
+                data: {
+                    connectionId: state.current.dataConnection.qId,
+                    connection: state.current.dataConnection,
+                    path: path
+                }
+            })            
+
+        },
         getDataPreview: function ({ commit, state }, data) {
 
             let path = data
@@ -147,7 +206,8 @@ const store = new Vuex.Store({
                 data: {
                     connectionId: state.current.dataConnection.qId,
                     connection: state.current.dataConnection,
-                    path: path
+                    path: path,
+                    currentTable: state.fileTables[0]
                 }
             })
             commit('SET_CURRENT_FILE', data)
@@ -166,7 +226,13 @@ const store = new Vuex.Store({
             //     currentTable = data.fileTables[0].qName
             // }
 
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: [], currentTable: '', loadScript: data.loadScript })
+            commit('SET_DATAPREVIEW', { 
+                tableData: tableData, 
+                fileType: data.fileType, 
+                fileTables: [], 
+                currentTable: '', 
+                loadScript: data.loadScript 
+            })
         },
         setDataPreviewExcel: function ({ commit, state }, data) {
             let rowsData = [...data.dataPreview.qPreview]
@@ -183,7 +249,16 @@ const store = new Vuex.Store({
                 currentTable = data.fileTables[0].qName
             }
 
-            commit('SET_DATAPREVIEW', { tableData: tableData, fileType: data.fileType, fileTables: data.fileTables, currentTable: currentTable, loadScript: data.loadScript })
+            commit('SET_DATAPREVIEW', { 
+                tableData: tableData, 
+                fileType: data.fileType, 
+                fileTables: data.fileTables, 
+                // currentTable: currentTable, 
+                // loadScript: data.loadScript
+            })
+        },
+        setDataPreviewAdditional: function({commit, state}, data) {
+
         },
         setDataPreviewVisible: function ({ commit }, data) {
             commit('SET_DATAPREVIEW_VISIBLE', data)
@@ -217,6 +292,8 @@ const store = new Vuex.Store({
                 path = state.current.folderLevel.join('/') + '/' + state.current.file
             }
 
+            commit('CHANGE_TABLE', data)
+
             state.vscode.postMessage({
                 command: 'getDataPreview',
                 data: {
@@ -227,9 +304,20 @@ const store = new Vuex.Store({
                     currentTable: data
                 }
             })
-
-            commit('CHANGE_TABLE', data)
+            
         },
+        setLoadScripts: function({state, commit}, data) {
+            data[0].active = true
+
+            commit('SET_LOAD_SCRIPTS', {scripts: data, activeTable: data[0].tableName })
+        },
+        changeScript: function({state, commit}, data) {
+            commit('SET_ACTIVE_SCRIPTS', data)
+            commit('UPDATE_LOAD_SCRIPT', data)
+        },
+        // updateLoadScript: function({state, commit}, data) {
+        //     commit('UPDATE_LOAD_SCRIPT', data)
+        // },
         copyToClipboard: function ({ state }) {
             state.vscode.postMessage({
                 command: 'copyToClipboard',
@@ -240,9 +328,20 @@ const store = new Vuex.Store({
         }
     },
     getters: {
-        loadScript: function (state) {
+        loadScript_old: function (state) {
             return state.loadScript
         },
+        loadScript: function (state) {
+            return state.loadScriptActive
+            // let activeScripts = state.loadScripts.filter(function(s) {
+            //     return s.active == true
+            // })
+            // .map(function(s) {
+            //     return s.script
+            // })
+            
+            // return activeScripts.join('\n\n\n')
+        },        
         connections: function (state) {
             // return state.dataConnections.filter(function (d) {
             //     return d.description == 'folder'
@@ -288,6 +387,14 @@ const store = new Vuex.Store({
         },
         currentTable: function (state) {
             return state.currentTable
+        },
+        activeScripts: function(state) {
+            return state.activeScripts
+            // return state.loadScripts.filter(function(s) {
+            //     return s.active == true
+            // }).map(function(s) {
+            //     return s.tableName
+            // })
         }
     }
 })

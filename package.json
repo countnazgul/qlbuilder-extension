@@ -2,7 +2,7 @@
 	"name": "qlbuilder-extension",
 	"displayName": "qlbuilder-extension",
 	"description": "",
-	"version": "0.1.9",
+	"version": "0.1.10",
 	"publisher": "stefanstoichev",
 	"engines": {
 		"vscode": "^1.39.0"
@@ -13,6 +13,11 @@
 	"activationEvents": [
 		"onCommand:dataConnections"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/countnazgul/qlbuilder-extension.git"
+	},
+	"license": "MIT",
 	"main": "./src/extension.js",
 	"contributes": {
 		"commands": [
