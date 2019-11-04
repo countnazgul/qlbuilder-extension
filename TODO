@@ -3,9 +3,9 @@ General:
     ☐ Error handling
 
 Data Preview:
-    ☐ fix - keep current data connection style
     ☐ UI change for multi-table
-        ☐ generate all tables script (for xml/kml)
+        ☐ long table names - wrap?
+        ☐ long field names - wrap?
     ☐ Specific layout for each of the recognised formats:
         ☐ JSON for JSON format @medium @multi-table 
         ☐ FIX for Fixed Record @low @single-table 
@@ -14,6 +14,8 @@ Data Preview:
     ☐ insert the generated load script into the current file (optional. if possible at all) @low
 
 Archive:
+  ✔ generate all tables script (for xml/kml) @done(19-11-04 10:00) @project(Data Preview)
+  ✔ fix - keep current data connection style @done(19-11-04 10:00) @project(Data Preview)
   ✔ list of tables on the left side of the data table @done(19-10-29 06:25) @project(Data Preview)
   ✔ KML for KML file @low @multi-table @done(19-10-24 06:15) @project(Data Preview)
   ✔ XML for XML @medium @multi-table @done(19-10-23 18:27) @project(Data Preview)
