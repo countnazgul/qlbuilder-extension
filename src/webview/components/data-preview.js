@@ -27,6 +27,9 @@ Vue.component('data-preview', {
         },
         loadScript() {
             return store.getters.loadScript
+        },
+        activeScripts() {
+            return store.getters.activeScripts
         }
     },
     created: function () {
@@ -50,7 +53,7 @@ Vue.component('data-preview', {
         <div class="data-preview-table1">
             <div class="fields-list">
                 <!--<ul class="lui-list">-->
-                <tableButton v-for="tableData in fileTables" :tableData="tableData" :currentTable="currentTable"></tableButton>
+                <tableButton v-for="tableData in fileTables" :tableData="tableData" :currentTable="currentTable" :activeScripts="activeScripts"></tableButton>
                 <!--</ul>-->
             </div>
             <div class="table-container">

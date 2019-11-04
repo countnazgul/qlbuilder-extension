@@ -19,7 +19,7 @@ const singleTable = async function ({ message, fileType, qDoc }) {
 
 // xls, xlsx
 const excel = async function ({ message, fileType, qDoc }) {
-    let currentTable = ''
+    // let currentTable = ''
     let fileTables = []
 
     if (message.data.currentTable) {
@@ -30,7 +30,7 @@ const excel = async function ({ message, fileType, qDoc }) {
         // currentTable = fileTables[0].qName
     }
 
-    let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, currentTable)
+    let fileTablePreview = await qDoc.getFileTablePreview(message.data.connectionId, message.data.path, fileType, message.data.currentTable)
     
     // let fileTablesAndFields = await getAllTablesAndFields({qDoc, message, fileType, fileTables})
     // let allLoadScripts = buildCompleteScript(message.data, fileTablesAndFields)
@@ -45,7 +45,7 @@ const excel = async function ({ message, fileType, qDoc }) {
             dataPreview: fileTablePreview,
             fileType: fileType,
             fileTables: fileTables,
-            currentTable: currentTable,
+            // currentTable: currentTable,
             // loadScript: allLoadScripts
         }
     }

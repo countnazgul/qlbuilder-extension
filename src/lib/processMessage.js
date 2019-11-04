@@ -58,6 +58,11 @@ const process = {
         let fileTablesAndFields = await getAllTablesAndFields({qDoc, message, fileType, fileTables})
         let allLoadScripts = buildCompleteScript(message.data, fileTablesAndFields)
 
+        return {
+            command: 'sendLoadScripts',
+            data: allLoadScripts
+        }
+
         let a = 1
     },
     copyToClipboard: async function ({ qDoc, message, vscode }) {

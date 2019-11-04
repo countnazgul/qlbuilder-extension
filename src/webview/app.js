@@ -59,6 +59,11 @@ Vue.component('user-name', {
                 case 'sendDataPreview':
                     store.dispatch('setDataPreview', message.data)
                     break;
+                case 'sendLoadScripts':
+                    store.dispatch('setLoadScripts', message.data)
+                    break;
+                default:
+                    console.log('test')
             }
 
         });

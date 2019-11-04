@@ -12,7 +12,7 @@ Vue.component('file', {
 
             if (this.type == 'file') {                
                 store.dispatch('getLoadScript', this.file.qName);
-                // store.dispatch('getDataPreview', this.file.qName);
+                store.dispatch('getDataPreview', this.file.qName);
             }            
         }
     },
