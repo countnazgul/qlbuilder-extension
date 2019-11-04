@@ -57,7 +57,7 @@ Vue.component('tableButton', {
             <span class="lui-checkbox__check"></span>
         </div>
     </label>
-    <span @click="tablePreview" class="lui-list__text" :class="{link: !disabledCheck}">{{tableData}}</span>
+    <span @click="tablePreview" class="lui-list__text table-name" :class="{link: !disabledCheck}" :title="tableData">{{tableData}}</span>
 </div>            
 `,
 })

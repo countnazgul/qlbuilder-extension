@@ -283,6 +283,12 @@ table td {
   text-overflow: ellipsis;
 }
 
+.table-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;
