@@ -1,6 +1,7 @@
 General:
     ☐ Authentication and integration with qlbuilder files! @high 
     ☐ Error handling
+    ☐ investigate extension state
 
 Data Preview:
     ☐ Specific layout for each of the recognised formats:
@@ -9,6 +10,9 @@ Data Preview:
         ☐ DIF for Data Interchange Format @low @single-table
         ☐ HTML for HTML @low @multi-table         
     ☐ insert the generated load script into the current file (optional. if possible at all) @low
+    ☐ add table names in the generated script
+    ☐ script placeholder to be dynamic
+    ☐ scrollbar (when needed) on the tables list
 
 Archive:
   ✔ UI change for multi-table @done(19-11-04 12:48) @project(Data Preview)

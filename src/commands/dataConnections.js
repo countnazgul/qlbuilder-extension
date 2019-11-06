@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const qAuth = require('qlik-sense-authenticate');
 
 const helpers = require('../lib/helpers');
 const processMessage = require('../lib/processMessage');
@@ -19,6 +20,9 @@ const dataConnections = function (context) {
         })
 
         let selectedEnvironment = await vscode.window.showQuickPick(environmentNames)
+        let selectedEnvironmentDetails = filesChecks.message.coreConfig.filter(function (e) {
+            return e.name == selectedEnvironment
+        })[0]
 
         if (!selectedEnvironment) {
             return false
@@ -42,6 +46,7 @@ const dataConnections = function (context) {
         panel.webview.html = helpers.getWebviewContent(vscode, context, panel)
         panel.iconPath = helpers.panelIcons(vscode, context)
 
+        let qsEnt = await qlikComm.handleAuthenticationType[selectedEnvironmentDetails.authentication.type]({ selectedEnvironmentDetails, variables })
         let qDoc = await qlikComm.getQlikDoc(environmentChecks.message)
 
         if (qDoc.error) {
