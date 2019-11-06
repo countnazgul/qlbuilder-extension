@@ -30,6 +30,8 @@ const dataConnections = function (context) {
 
         let environmentChecks = helpers.environmentChecks.combined(selectedEnvironment, filesChecks.message)
 
+        let test = initialChecks.combined(selectedEnvironment)
+
         if (environmentChecks.error) {
             vscode.window.showErrorMessage(environmentChecks.message)
             return false
@@ -46,7 +48,10 @@ const dataConnections = function (context) {
         panel.webview.html = helpers.getWebviewContent(vscode, context, panel)
         panel.iconPath = helpers.panelIcons(vscode, context)
 
-        let qsEnt = await qlikComm.handleAuthenticationType[selectedEnvironmentDetails.authentication.type]({ selectedEnvironmentDetails, variables })
+        let envVariables = getEnvVariables(selectedEnvironment)
+        if (envVariables.error) return envVariables
+
+        let qsEnt = await qlikComm.handleAuthenticationType[selectedEnvironmentDetails.authentication.type]({ selectedEnvironmentDetails, envVariables.message })
         let qDoc = await qlikComm.getQlikDoc(environmentChecks.message)
 
         if (qDoc.error) {
@@ -67,6 +72,10 @@ const dataConnections = function (context) {
 
         return 1
     })
+}
+
+const getEnvVariables = function (envName) {
+
 }
 
 module.exports = dataConnections
