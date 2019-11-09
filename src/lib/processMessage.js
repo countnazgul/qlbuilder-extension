@@ -12,7 +12,7 @@ const process = {
         }
     },
     getFiles: async function ({ qDoc, message }) {
-        let filesList = await qlikComm.getFilesList(qDoc, message.data.connectionId, message.data.path)
+        let filesList = await qlikComm.getFilesList(qDoc, message.data.connection, message.data.path)
         // let dcProperties = await getDataConnectionProps(qDoc, message.connectionId)
 
         return {

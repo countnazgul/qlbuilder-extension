@@ -1,8 +1,9 @@
 const enigma = require('enigma.js');
 const WebSocket = require('ws');
 const schema = require('enigma.js/schemas/12.20.0.json');
+const qAuth = require('qlik-sense-authenticate');
 
-const getQlikDoc = async function (config) {
+const getQlikDoc = async function (config, headers) {
     let wsUri = `ws://${config.core.host}`
 
     if (!config.core.secure == undefined) {
@@ -18,8 +19,12 @@ const getQlikDoc = async function (config) {
     const session = enigma.create({
         schema,
         url: wsUri,
-        createSocket: url => new WebSocket(url),
+        createSocket: url => new WebSocket(url, {
+            headers: headers,
+            rejectUnauthorized:false
+        }),
     });
+    // session.on('traffic:*', console.log);
 
     try {
         let global = await session.open()
@@ -39,8 +44,13 @@ const getDataConnectionProps = async function (qDoc, connectionId) {
     return dcProps
 }
 
-const getFilesList = async function (qDoc, connectionId, path) {
-    let list = await qDoc.getFolderItemsForConnection(connectionId, path)
+const getFilesList = async function (qDoc, connection, path) {
+    let a = 1
+    let list = await qDoc.getFolderItemsForConnection(connection.qId, path).catch(function(e) {
+        return {error: true, message: e.message}
+    })
+
+    if(list.error) return list
 
     let folders = list.filter(function (d) {
         return d.qType == 'FOLDER'
@@ -107,8 +117,8 @@ const handleAuthenticationType = {
             return { error: true, message: 'The username should be in format DOMAIN\\USER' }
         }
 
-        // decode the password only if the password is comming from .qlbuilder.yml
-        // and encoding != false in the env config (the used dont want to use encoded password)
+        // decode the password only if the password is coming from .qlbuilder.yml
+        // and encoding != false in the env config (the used don't want to use encoded password)
         if (variables.isHomeConfig && environment.authentication.encoding) {
             if (!isBase64(variables.QLIK_PASSWORD)) {
                 return { error: true, message: 'Please do not store passwords in plain text! Use "qlbuilder encode" to get the encoded version of the password and update the yml entry' }
@@ -121,7 +131,7 @@ const handleAuthenticationType = {
         let auth_config = {
             type: 'win',
             props: {
-                url: environment.host,
+                url: 'https://sense1.calibrateconsulting.com', //environment.host,
                 proxy: '',
                 username: variables.QLIK_USER,
                 password: variables.QLIK_PASSWORD,

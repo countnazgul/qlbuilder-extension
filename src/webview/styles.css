@@ -58,6 +58,7 @@ body {
 
 .dc-list {
   padding-top: 5px;
+  overflow: auto;
 }
 
 .files {

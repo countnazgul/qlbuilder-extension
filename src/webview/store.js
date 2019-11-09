@@ -133,11 +133,17 @@ const store = new Vuex.Store({
         getFiles: function ({ commit, state }, data) {
             commit('SET_CURRENT_DC', data)
             commit('SET_SHOWER', { shower: 'files', value: true })
+
+            let path = state.current.folderLevel.join('\\')
+
+            // if(path == '') path = '/'
+
             state.vscode.postMessage({
                 command: 'getFiles',
                 data: {
-                    connectionId: data.qId,
-                    path: state.current.folderLevel.join('\\')
+                    // connectionId: data.qId,
+                    connection: data,
+                    path: path
                 }
             })
         },
@@ -147,7 +153,7 @@ const store = new Vuex.Store({
             state.vscode.postMessage({
                 command: 'getFiles',
                 data: {
-                    connectionId: state.current.dataConnection.qId,
+                    connection: state.current.dataConnection,
                     path: state.current.folderLevel.join('\\')
                 }
             })
@@ -167,7 +173,7 @@ const store = new Vuex.Store({
             state.vscode.postMessage({
                 command: 'getFiles',
                 data: {
-                    connectionId: state.current.dataConnection.qId,
+                    connection: state.current.dataConnection,
                     path: state.current.folderLevel.join('\\')
                 }
             })
