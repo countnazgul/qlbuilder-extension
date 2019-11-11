@@ -75,7 +75,12 @@ const getDataConnections = async function (qDoc) {
 
 const handleAuthenticationType = {
     desktop: async function () {
-        return {}
+        return {
+            error: false, 
+            message: {
+                headers: {}
+            }
+        }
     },
     cert: async function ({ environment, variables }) {
 

@@ -312,10 +312,12 @@ const store = new Vuex.Store({
             })
             
         },
-        setLoadScripts: function({state, commit}, data) {
+        setLoadScripts: function({state, commit, dispatch}, allData) {
+            let data = allData.allScripts
             data[0].active = true
 
             commit('SET_LOAD_SCRIPTS', {scripts: data, activeTable: data[0].tableName })
+            dispatch('getDataPreview', allData.path);
         },
         changeScript: function({state, commit}, data) {
             commit('SET_ACTIVE_SCRIPTS', data)

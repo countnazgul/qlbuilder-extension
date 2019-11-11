@@ -60,10 +60,11 @@ const process = {
 
         return {
             command: 'sendLoadScripts',
-            data: allLoadScripts
+            data: {
+                allScripts: allLoadScripts,
+                path: message.data.path
+            }
         }
-
-        let a = 1
     },
     copyToClipboard: async function ({ qDoc, message, vscode }) {
         await vscode.env.clipboard.writeText(message.data.loadScript)

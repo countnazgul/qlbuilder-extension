@@ -50,6 +50,11 @@ const dataConnections = function (context) {
         // let envVariables = getEnvVariables(selectedEnvironment)
         // if (envVariables.error) return envVariables
 
+        if(!selectedEnvironmentDetails.authentication) {
+            selectedEnvironmentDetails.authentication = {}
+            selectedEnvironmentDetails.authentication.type = 'desktop'
+        }
+
         let qsEnt = await qlikComm.handleAuthenticationType[selectedEnvironmentDetails.authentication.type]({ environment: selectedEnvironmentDetails, variables: environmentChecks.message.home })
         if (qsEnt.error) return qsEnt
 

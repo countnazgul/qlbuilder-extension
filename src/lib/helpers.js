@@ -153,6 +153,9 @@ const environmentChecks = {
     // },
     home: function (selectedEnvironment, config, coreEnv) {
         if (coreEnv.host.indexOf(':4848') > -1) return { error: false, message: 'QS Desktop' }
+        if (coreEnv.host.indexOf(':9076') > -1) return { error: false, message: 'QS Desktop' }
+        if (coreEnv.host.indexOf(':19076') > -1) return { error: false, message: 'QS Desktop' }
+        
         if (!config.homeConfig[selectedEnvironment]) return { error: true, message: 'The selected environment was not found in the home config .qlbuilder file' }
 
         return config.homeConfig[selectedEnvironment]
