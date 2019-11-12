@@ -23,8 +23,8 @@ const getNonce = function () {
     return text;
 }
 
-const createLoadScript = function (connection, fileTableFields) {
-    let loadScript = ['Load']
+const createLoadScript = function (connection, fileTableFields, tableName) {
+    let loadScript = [`[${tableName}]:`, 'Load']
 
     let fields = []
     for (let field of fileTableFields.qFields) {

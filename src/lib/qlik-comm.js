@@ -45,7 +45,7 @@ const getDataConnectionProps = async function (qDoc, connectionId) {
 }
 
 const getFilesList = async function (qDoc, connection, path) {
-    let a = 1
+    // let a = 1
     let list = await qDoc.getFolderItemsForConnection(connection.qId, path).catch(function(e) {
         return {error: true, message: e.message}
     })

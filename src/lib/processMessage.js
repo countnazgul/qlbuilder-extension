@@ -88,7 +88,7 @@ const getAllTablesAndFields = async function({qDoc, message, fileType, fileTable
 
 const buildCompleteScript =  function(connection, tablesAndFields) {
     let fullScript = tablesAndFields.map(function(f) {
-        let localScript = helpers.createLoadScript(connection, f.data)
+        let localScript = helpers.createLoadScript(connection, f.data, f.fileTable.qName)
 
         return {
             tableName: f.fileTable.qName,
