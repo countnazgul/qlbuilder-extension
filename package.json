@@ -47,6 +47,6 @@
 		"js-yaml": "^3.13.1",
 		"leonardo-ui": "^1.7.1",
 		"qlik-sense-authenticate": "^0.1.8",
-		"ws": "^7.1.2"
+		"ws": "^7.4.6"
 	}
 }
